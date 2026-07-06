@@ -1,0 +1,156 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ */
+/*  PilluleCast — Design tokens (Tailwind v4 CSS-first config)         */
+/*  Dark cinématique, premium, "on air". Signature = gélule bicolore.  */
+/* ------------------------------------------------------------------ */
+@theme {
+  /* Couleurs */
+  --color-bg: #0a0a0d; /* Fond */
+  --color-surface: #15151c; /* Surface / carte */
+  --color-surface-2: #1c1c25; /* Surface légèrement plus claire */
+  --color-border: #26262f; /* Bordure */
+  --color-ink: #f4f4ef; /* Texte principal */
+  --color-muted: #a0a0ac; /* Texte secondaire */
+  --color-rec: #ff4d3d; /* Accent 1 — corail « REC » */
+  --color-acid: #b8ff5c; /* Accent 2 — vert acide */
+
+  /* Typographie (chargée via next/font dans layout.tsx) */
+  --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  /* Rayons — coins très arrondis */
+  --radius-pill: 999px;
+
+  /* Animations */
+  --animate-air-pulse: air-pulse 2s ease-in-out infinite;
+  --animate-wave: wave 1.2s ease-in-out infinite;
+  --animate-float: float 6s ease-in-out infinite;
+}
+
+@keyframes air-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(0.7);
+  }
+}
+
+@keyframes wave {
+  0%,
+  100% {
+    transform: scaleY(0.35);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Base                                                               */
+/* ------------------------------------------------------------------ */
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Titres en grotesque expressif */
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+/* Focus visible accessible partout */
+:focus-visible {
+  outline: 2px solid var(--color-acid);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+::selection {
+  background: var(--color-acid);
+  color: var(--color-bg);
+}
+
+/* Respect des préférences de mouvement réduit */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Utilitaires signature                                             */
+/* ------------------------------------------------------------------ */
+
+/* Grain léger appliqué en overlay (voir composant <Grain />) */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Halo lumineux discret pour les héros / sections */
+.glow-rec {
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    color-mix(in srgb, var(--color-rec) 22%, transparent) 0%,
+    transparent 100%
+  );
+}
+.glow-acid {
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    color-mix(in srgb, var(--color-acid) 18%, transparent) 0%,
+    transparent 100%
+  );
+}
+
+/* Motif d'onde sonore discret (fond de section) */
+.wave-texture {
+  background-image: repeating-linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--color-ink) 4%, transparent) 0 1px,
+    transparent 1px 8px
+  );
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 20%, #000 80%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 20%, #000 80%, transparent);
+}

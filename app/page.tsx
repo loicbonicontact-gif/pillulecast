@@ -1,0 +1,285 @@
+import Section, { Eyebrow } from "@/components/Section";
+import PillButton from "@/components/PillButton";
+import OnAirBadge from "@/components/OnAirBadge";
+import SoundWave from "@/components/SoundWave";
+import GeluleCard from "@/components/GeluleCard";
+import PhotoPlaceholder from "@/components/PhotoPlaceholder";
+import Gelule from "@/components/Gelule";
+import { site } from "@/lib/site";
+
+/* Données de contenu — placeholders réalistes, à remplacer. */
+const clients = [
+  "[À REMPLACER : client 1]",
+  "[À REMPLACER : client 2]",
+  "[À REMPLACER : client 3]",
+  "[À REMPLACER : client 4]",
+];
+
+const formats = [
+  {
+    eyebrow: "Format audio",
+    title: "Capsule Audio",
+    accent: "rec" as const,
+    desc: "Enregistrement audio jusqu'à 4 micros, ingé son inclus. Votre voix, propre et prête à publier.",
+    points: ["Jusqu'à 4 micros", "Ingé son inclus", "Fichiers livrés le jour même"],
+    price: "dès ~55 €/h",
+  },
+  {
+    eyebrow: "Format vidéo",
+    title: "Capsule Vidéo",
+    accent: "acid" as const,
+    desc: "Multi-caméra jusqu'à 3 invités, régie et ingé son. De l'entretien filmé au format réseaux.",
+    points: ["Multi-caméra", "Jusqu'à 3 invités", "Régie + ingé son"],
+    price: "dès ~110 €/h",
+  },
+];
+
+const testimonials = [
+  {
+    quote: "[À REMPLACER : témoignage client — 1 à 2 phrases, concret et sincère.]",
+    author: "[À REMPLACER : nom]",
+    role: "[À REMPLACER : podcast / entreprise]",
+  },
+  {
+    quote: "[À REMPLACER : témoignage client — 1 à 2 phrases, concret et sincère.]",
+    author: "[À REMPLACER : nom]",
+    role: "[À REMPLACER : podcast / entreprise]",
+  },
+];
+
+const faq = [
+  {
+    q: "Je débute, vous m'accompagnez ?",
+    a: "Oui. On règle le son, on cadre, on vous guide pendant l'enregistrement. Vous venez avec vos idées, on s'occupe du reste.",
+  },
+  {
+    q: "Qu'est-ce que je repars avec ?",
+    a: "[À REMPLACER : livrables précis, ex. fichiers audio bruts + version montée, clips verticaux, rushes vidéo.]",
+  },
+  {
+    q: "Comment se passe la réservation ?",
+    a: "Vous choisissez un créneau en ligne, vous réglez un acompte de 30 % pour le bloquer, et c'est confirmé. Le solde se règle sur place.",
+  },
+  {
+    q: "Où se trouve le studio ?",
+    a: `À ${site.city}. ${site.address}`,
+  },
+];
+
+export default function Home() {
+  return (
+    <>
+      {/* ---------------------------------------------------------------- */}
+      {/* HERO                                                             */}
+      {/* ---------------------------------------------------------------- */}
+      <Section className="relative flex min-h-[86vh] flex-col justify-center py-20">
+        {/* Halos d'ambiance */}
+        <div
+          aria-hidden
+          className="glow-rec pointer-events-none absolute -top-20 left-1/4 h-72 w-72 -translate-x-1/2"
+        />
+        <div
+          aria-hidden
+          className="glow-acid pointer-events-none absolute bottom-10 right-0 h-72 w-72"
+        />
+
+        <div className="relative flex flex-col items-start gap-8">
+          <OnAirBadge />
+
+          <h1 className="max-w-4xl text-5xl font-bold leading-[1.02] sm:text-7xl">
+            Studio podcast &amp; vidéo
+            <br />à <span className="text-rec">{site.city}</span>.
+          </h1>
+
+          <p className="max-w-xl text-lg text-muted sm:text-xl">
+            {site.baseline}
+          </p>
+
+          {/* Onde animée */}
+          <div className="h-20 w-full max-w-2xl sm:h-24">
+            <SoundWave />
+          </div>
+
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <PillButton href="/reserver" size="lg">
+              Réserver une séance
+            </PillButton>
+            <PillButton href="/tarifs" variant="secondary" size="lg">
+              Voir les tarifs
+            </PillButton>
+          </div>
+        </div>
+      </Section>
+
+      {/* ---------------------------------------------------------------- */}
+      {/* BANDEAU CONFIANCE                                                */}
+      {/* ---------------------------------------------------------------- */}
+      <Section className="py-10">
+        <p className="mb-6 text-center text-xs uppercase tracking-[0.2em] text-muted">
+          Ils sont passés au studio
+        </p>
+        <ul className="grid grid-cols-2 items-center gap-4 sm:grid-cols-4">
+          {clients.map((c) => (
+            <li
+              key={c}
+              className="flex h-16 items-center justify-center rounded-2xl border border-border bg-surface/40 px-4 text-center text-xs text-muted"
+            >
+              {c}
+            </li>
+          ))}
+        </ul>
+      </Section>
+
+      {/* ---------------------------------------------------------------- */}
+      {/* CE QU'ON FAIT                                                    */}
+      {/* ---------------------------------------------------------------- */}
+      <Section className="py-20">
+        <div className="mb-10 flex flex-col gap-3">
+          <Eyebrow>Ce qu'on fait</Eyebrow>
+          <h2 className="max-w-2xl text-4xl sm:text-5xl">
+            Deux formats, une même exigence.
+          </h2>
+        </div>
+
+        <div className="grid gap-6 md:grid-cols-2">
+          {formats.map((f) => (
+            <GeluleCard
+              key={f.title}
+              eyebrow={f.eyebrow}
+              title={f.title}
+              accent={f.accent}
+              footer={
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium text-ink">{f.price}</span>
+                  <PillButton href="/reserver" variant="secondary">
+                    Réserver
+                  </PillButton>
+                </div>
+              }
+            >
+              <p className="mb-4">{f.desc}</p>
+              <ul className="flex flex-wrap gap-2">
+                {f.points.map((p) => (
+                  <li
+                    key={p}
+                    className="rounded-pill border border-border bg-bg/40 px-3 py-1 text-xs text-ink/80"
+                  >
+                    {p}
+                  </li>
+                ))}
+              </ul>
+            </GeluleCard>
+          ))}
+        </div>
+      </Section>
+
+      {/* ---------------------------------------------------------------- */}
+      {/* APERÇU STUDIO                                                    */}
+      {/* ---------------------------------------------------------------- */}
+      <Section className="py-20">
+        <div className="grid items-center gap-10 lg:grid-cols-2">
+          <div className="flex flex-col gap-5">
+            <Eyebrow>Le lieu</Eyebrow>
+            <h2 className="text-4xl sm:text-5xl">
+              Un studio pensé pour la voix et l'image.
+            </h2>
+            <p className="max-w-md text-muted">
+              [À REMPLACER : une phrase sur l'ambiance du studio — insonorisation,
+              lumière, confort, matériel.] Traité acoustiquement, éclairé avec soin,
+              prêt à tourner.
+            </p>
+            <PillButton href="/studio" variant="secondary" className="w-fit">
+              Découvrir le studio
+            </PillButton>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <PhotoPlaceholder label="cabine d'enregistrement" className="col-span-2" ratio="aspect-[16/9]" />
+            <PhotoPlaceholder label="poste micro" />
+            <PhotoPlaceholder label="régie / plateau vidéo" />
+          </div>
+        </div>
+      </Section>
+
+      {/* ---------------------------------------------------------------- */}
+      {/* TÉMOIGNAGES                                                      */}
+      {/* ---------------------------------------------------------------- */}
+      <Section className="py-20">
+        <div className="mb-10 flex flex-col gap-3">
+          <Eyebrow>On en parle</Eyebrow>
+          <h2 className="text-4xl sm:text-5xl">Ce qu'ils en disent.</h2>
+        </div>
+        <div className="grid gap-6 md:grid-cols-2">
+          {testimonials.map((t, i) => (
+            <figure
+              key={i}
+              className="flex flex-col gap-5 rounded-3xl border border-border bg-surface p-8"
+            >
+              <Gelule angle={35} className="h-9 w-4 opacity-80" />
+              <blockquote className="text-lg text-ink">{t.quote}</blockquote>
+              <figcaption className="text-sm text-muted">
+                <span className="text-ink">{t.author}</span> — {t.role}
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </Section>
+
+      {/* ---------------------------------------------------------------- */}
+      {/* FAQ                                                              */}
+      {/* ---------------------------------------------------------------- */}
+      <Section className="py-20">
+        <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
+          <div className="flex flex-col gap-3">
+            <Eyebrow>FAQ</Eyebrow>
+            <h2 className="text-4xl sm:text-5xl">Les questions qui reviennent.</h2>
+          </div>
+          <div className="flex flex-col divide-y divide-border border-y border-border">
+            {faq.map((item) => (
+              <details key={item.q} className="group py-5">
+                <summary className="flex cursor-pointer items-center justify-between gap-4 text-lg text-ink marker:content-['']">
+                  {item.q}
+                  <span
+                    aria-hidden
+                    className="flex h-7 w-7 shrink-0 items-center justify-center rounded-pill border border-border text-muted transition-transform group-open:rotate-45"
+                  >
+                    +
+                  </span>
+                </summary>
+                <p className="mt-3 max-w-xl text-muted">{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </Section>
+
+      {/* ---------------------------------------------------------------- */}
+      {/* CTA FINAL                                                        */}
+      {/* ---------------------------------------------------------------- */}
+      <Section className="py-20">
+        <div className="relative overflow-hidden rounded-[2rem] border border-border bg-surface px-6 py-16 text-center sm:px-16">
+          <div className="glow-rec pointer-events-none absolute -left-20 top-0 h-64 w-64" aria-hidden />
+          <div className="glow-acid pointer-events-none absolute -right-20 bottom-0 h-64 w-64" aria-hidden />
+          <div className="relative flex flex-col items-center gap-6">
+            <OnAirBadge />
+            <h2 className="max-w-2xl text-4xl sm:text-5xl">
+              Prêt à enregistrer votre première capsule ?
+            </h2>
+            <p className="max-w-lg text-muted">
+              Choisissez un créneau, réglez l'acompte, on s'occupe du son et de
+              l'image. Vous repartez avec vos fichiers.
+            </p>
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <PillButton href="/reserver" size="lg">
+                Réserver une séance
+              </PillButton>
+              <PillButton href="/contact" variant="secondary" size="lg">
+                Nous contacter
+              </PillButton>
+            </div>
+          </div>
+        </div>
+      </Section>
+    </>
+  );
+}
