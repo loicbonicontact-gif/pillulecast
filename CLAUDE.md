@@ -74,6 +74,10 @@ Un commit à la fin de chaque phase validée.
 ## Avancement (phases)
 
 - [x] **Phase 0** — init, design system, Accueil.
-- [ ] **Phase 1** — `/studio` + `/tarifs`.
-- [ ] **Phase 2** — `/reserver` (Cal.com) + `/contact` (API + Resend) + légales.
-- [ ] **Phase 3** — polish responsive/a11y/SEO + README de mise en ligne.
+- [x] **Phase 1** — `/studio` + `/tarifs`.
+- [x] **Phase 2** — `/reserver` (embed Cal.com via `@calcom/embed-react`,
+  fallback si lien non configuré) + `/contact` (formulaire → `app/api/contact`
+  + Resend, log si clé absente) + `/mentions-legales` + `/confidentialite`.
+- [ ] **Phase 3** — polish responsive/a11y/SEO final.
+
+Contenu éditorial des pages : `lib/content.ts` (tarifs, add-ons, studio).
