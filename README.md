@@ -1,36 +1,75 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PilluleCast — site vitrine
 
-## Getting Started
+Studio de **podcast & vidéo à Lyon**. Site Next.js 16 (App Router) + TypeScript +
+Tailwind v4. Objectif : présenter le studio, afficher les tarifs, et convertir
+vers **« Réserver une séance »**.
 
-First, run the development server:
+> ⚠️ Le site est en construction par phases. **Seule la page d'accueil (`/`) est
+> faite pour l'instant.** Les routes `/studio`, `/tarifs`, `/reserver`, `/contact`
+> et les pages légales arrivent aux phases suivantes (elles renvoient un 404 tant
+> qu'elles ne sont pas construites).
+
+## Développement local
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # build de production (test de déployabilité)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Variables d'environnement
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Copiez `.env.example` en `.env.local` et remplissez vos valeurs.
+`.env.local` est gitignoré — **ne committez jamais de clé**.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Variable | Rôle | Requis |
+| --- | --- | --- |
+| `NEXT_PUBLIC_SITE_URL` | URL publique (SEO/OG/sitemap) | Recommandé en prod |
+| `NEXT_PUBLIC_CALCOM_LINK` | Lien Cal.com de réservation | Phase 2 |
+| `RESEND_API_KEY` | Clé Resend (emails du formulaire) | Phase 2 |
+| `CONTACT_TO_EMAIL` | Adresse qui reçoit les messages | Phase 2 |
+| `CONTACT_FROM_EMAIL` | Adresse expéditrice (domaine vérifié Resend) | Phase 2 |
 
-## Learn More
+## Déploiement — Vercel connecté à GitHub (recommandé)
 
-To learn more about Next.js, take a look at the following resources:
+Vercel héberge Next.js nativement : formulaire de contact (route API),
+optimisation d'images et embed Cal.com fonctionnent, redéploiement automatique à
+chaque `git push`. C'est gratuit (offre Hobby).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 1. Mettre le code sur GitHub
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Le dépôt Git local est déjà initialisé (branche `main`). Créez un dépôt GitHub
+vide (via https://github.com/new, **sans** README ni .gitignore), puis :
 
-## Deploy on Vercel
+```bash
+git remote add origin https://github.com/VOTRE-COMPTE/pillulecast.git
+git push -u origin main
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 2. Importer dans Vercel
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Aller sur https://vercel.com/new et se connecter avec GitHub.
+2. **Import** le dépôt `pillulecast`.
+3. Vercel détecte Next.js automatiquement — laisser les réglages par défaut.
+4. (Optionnel mais conseillé) Ajouter les variables d'environnement ci-dessus
+   dans *Settings → Environment Variables*. Mettre `NEXT_PUBLIC_SITE_URL` à
+   l'URL Vercel (ex. `https://pillulecast.vercel.app`).
+5. **Deploy**. Le site est en ligne en ~1 min.
+
+Chaque `git push` sur `main` redéploie automatiquement.
+
+### Domaine personnalisé (plus tard)
+
+*Settings → Domains* dans Vercel, puis pointer votre domaine (ex.
+`pillulecast.fr`). Mettre à jour `NEXT_PUBLIC_SITE_URL` en conséquence.
+
+## Ce qu'il reste à faire (placeholders & phases)
+
+- Remplacer tous les `[À REMPLACER : …]` (adresse, baseline, tarifs définitifs,
+  témoignages, liens réseaux…). La plupart sont centralisés dans `lib/site.ts`.
+- Remplacer les **photos de démo Unsplash** (objet `photos` dans `lib/site.ts`)
+  par vos vraies photos.
+- **Phase 1** : pages `/studio` + `/tarifs`.
+- **Phase 2** : `/reserver` (embed Cal.com + acompte Stripe **configuré dans
+  Cal.com**), `/contact` (route API + Resend), pages légales.
+- **Phase 3** : passe finale responsive / accessibilité / SEO + polish.

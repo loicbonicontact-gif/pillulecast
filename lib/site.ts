@@ -12,7 +12,9 @@ export const site = {
     "Studio de podcast & vidéo à Lyon. Enregistrez, filmez, repartez avec vos capsules.",
   city: "Lyon",
   // URL de production (sert au SEO / Open Graph / sitemap).
-  url: "https://pillulecast.fr", // [À REMPLACER : domaine définitif]
+  // Lue depuis NEXT_PUBLIC_SITE_URL en déploiement (ex. l'URL Vercel),
+  // sinon le domaine par défaut ci-dessous. [À REMPLACER : domaine définitif]
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://pillulecast.fr",
   email: "[À REMPLACER : email de contact]",
   address: "[À REMPLACER : adresse exacte du studio, Lyon]",
   hours: "[À REMPLACER : horaires d'ouverture]",
