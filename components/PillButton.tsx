@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { ComponentProps, ReactNode } from "react";
 
 /** Bouton « pill » (arrondi complet) — signature de la marque. */
-type Variant = "primary" | "secondary" | "acid";
+type Variant = "primary" | "secondary" | "lav";
 type Size = "md" | "lg";
 
 const base =
@@ -14,14 +14,14 @@ const sizes: Record<Size, string> = {
 };
 
 const variants: Record<Variant, string> = {
-  // Corail « REC » — action principale
+  // Aqua — action principale (CTA)
   primary:
-    "bg-rec text-bg hover:brightness-110 hover:shadow-[0_8px_30px_-8px_var(--color-rec)] active:scale-[0.98]",
+    "bg-aqua text-bg hover:brightness-110 hover:shadow-[0_8px_30px_-8px_var(--color-aqua)] active:scale-[0.98]",
   // Contour discret — action secondaire
   secondary:
     "border border-border bg-surface/60 text-ink hover:border-ink/40 hover:bg-surface active:scale-[0.98]",
-  // Vert acide — accent alternatif
-  acid: "bg-acid text-bg hover:brightness-105 hover:shadow-[0_8px_30px_-8px_var(--color-acid)] active:scale-[0.98]",
+  // Lavande — accent alternatif
+  lav: "bg-lav text-bg hover:brightness-105 hover:shadow-[0_8px_30px_-8px_var(--color-lav)] active:scale-[0.98]",
 };
 
 type PillButtonProps = {

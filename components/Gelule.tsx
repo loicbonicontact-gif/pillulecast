@@ -1,6 +1,6 @@
 /**
  * Gélule bicolore — le signe graphique récurrent de la marque.
- * Une capsule inclinée : une moitié corail « REC », une moitié vert acide.
+ * Une capsule inclinée : une moitié aqua, une moitié lavande.
  * Décoratif par défaut (aria-hidden) ; passez `title` pour la rendre parlante.
  */
 type GeluleProps = {
@@ -27,10 +27,10 @@ export default function Gelule({ className, angle = 45, title }: GeluleProps) {
         </clipPath>
       </defs>
       <g clipPath="url(#gelule-shape)">
-        {/* Moitié haute — corail */}
-        <rect x="0" y="0" width="64" height="80" fill="var(--color-rec)" />
-        {/* Moitié basse — vert acide */}
-        <rect x="0" y="80" width="64" height="80" fill="var(--color-acid)" />
+        {/* Moitié haute — aqua */}
+        <rect x="0" y="0" width="64" height="80" fill="var(--color-aqua)" />
+        {/* Moitié basse — lavande */}
+        <rect x="0" y="80" width="64" height="80" fill="var(--color-lav)" />
         {/* Reflet vertical discret */}
         <rect x="14" y="14" width="10" height="132" rx="5" fill="#fff" opacity="0.18" />
       </g>

@@ -1,4 +1,4 @@
-/** Micro-badge « ● ON AIR » : point corail qui pulse, forme pill. */
+/** Micro-badge « ● ON AIR » : point aqua qui pulse, forme pill. */
 export default function OnAirBadge({ className }: { className?: string }) {
   return (
     <span
@@ -6,7 +6,7 @@ export default function OnAirBadge({ className }: { className?: string }) {
     >
       <span
         aria-hidden
-        className="h-2 w-2 rounded-pill bg-rec [animation:var(--animate-air-pulse)] shadow-[0_0_8px_var(--color-rec)]"
+        className="h-2 w-2 rounded-pill bg-aqua [animation:var(--animate-air-pulse)] shadow-[0_0_8px_var(--color-aqua)]"
       />
       On Air
     </span>

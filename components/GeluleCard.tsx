@@ -10,14 +10,14 @@ export default function GeluleCard({
   title,
   children,
   footer,
-  accent = "rec",
+  accent = "aqua",
   className,
 }: {
   eyebrow?: string;
   title: string;
   children?: ReactNode;
   footer?: ReactNode;
-  accent?: "rec" | "acid";
+  accent?: "aqua" | "lav";
   className?: string;
 }) {
   return (
@@ -28,7 +28,7 @@ export default function GeluleCard({
       <div
         aria-hidden
         className={`pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-pill opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-100 ${
-          accent === "rec" ? "bg-rec/30" : "bg-acid/25"
+          accent === "aqua" ? "bg-aqua/30" : "bg-lav/25"
         }`}
       />
 

@@ -3,9 +3,9 @@ import PillButton from "@/components/PillButton";
 import OnAirBadge from "@/components/OnAirBadge";
 import SoundWave from "@/components/SoundWave";
 import GeluleCard from "@/components/GeluleCard";
-import PhotoPlaceholder from "@/components/PhotoPlaceholder";
+import StudioPhoto from "@/components/StudioPhoto";
 import Gelule from "@/components/Gelule";
-import { site } from "@/lib/site";
+import { site, photos } from "@/lib/site";
 
 /* Données de contenu — placeholders réalistes, à remplacer. */
 const clients = [
@@ -19,7 +19,7 @@ const formats = [
   {
     eyebrow: "Format audio",
     title: "Capsule Audio",
-    accent: "rec" as const,
+    accent: "aqua" as const,
     desc: "Enregistrement audio jusqu'à 4 micros, ingé son inclus. Votre voix, propre et prête à publier.",
     points: ["Jusqu'à 4 micros", "Ingé son inclus", "Fichiers livrés le jour même"],
     price: "dès ~55 €/h",
@@ -27,7 +27,7 @@ const formats = [
   {
     eyebrow: "Format vidéo",
     title: "Capsule Vidéo",
-    accent: "acid" as const,
+    accent: "lav" as const,
     desc: "Multi-caméra jusqu'à 3 invités, régie et ingé son. De l'entretien filmé au format réseaux.",
     points: ["Multi-caméra", "Jusqu'à 3 invités", "Régie + ingé son"],
     price: "dès ~110 €/h",
@@ -76,11 +76,11 @@ export default function Home() {
         {/* Halos d'ambiance */}
         <div
           aria-hidden
-          className="glow-rec pointer-events-none absolute -top-20 left-1/4 h-72 w-72 -translate-x-1/2"
+          className="glow-aqua pointer-events-none absolute -top-20 left-1/4 h-72 w-72 -translate-x-1/2"
         />
         <div
           aria-hidden
-          className="glow-acid pointer-events-none absolute bottom-10 right-0 h-72 w-72"
+          className="glow-lav pointer-events-none absolute bottom-10 right-0 h-72 w-72"
         />
 
         <div className="relative flex flex-col items-start gap-8">
@@ -88,7 +88,7 @@ export default function Home() {
 
           <h1 className="max-w-4xl text-5xl font-bold leading-[1.02] sm:text-7xl">
             Studio podcast &amp; vidéo
-            <br />à <span className="text-rec">{site.city}</span>.
+            <br />à <span className="text-aqua">{site.city}</span>.
           </h1>
 
           <p className="max-w-xl text-lg text-muted sm:text-xl">
@@ -194,9 +194,24 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            <PhotoPlaceholder label="cabine d'enregistrement" className="col-span-2" ratio="aspect-[16/9]" />
-            <PhotoPlaceholder label="poste micro" />
-            <PhotoPlaceholder label="régie / plateau vidéo" />
+            <StudioPhoto
+              src={photos.studioRoom.src}
+              alt={photos.studioRoom.alt}
+              className="col-span-2 aspect-[16/9]"
+              sizes="(max-width: 1024px) 100vw, 50vw"
+            />
+            <StudioPhoto
+              src={photos.broadcastMic.src}
+              alt={photos.broadcastMic.alt}
+              className="aspect-[4/3]"
+              sizes="(max-width: 1024px) 50vw, 25vw"
+            />
+            <StudioPhoto
+              src={photos.mixingDesk.src}
+              alt={photos.mixingDesk.alt}
+              className="aspect-[4/3]"
+              sizes="(max-width: 1024px) 50vw, 25vw"
+            />
           </div>
         </div>
       </Section>
@@ -258,8 +273,8 @@ export default function Home() {
       {/* ---------------------------------------------------------------- */}
       <Section className="py-20">
         <div className="relative overflow-hidden rounded-[2rem] border border-border bg-surface px-6 py-16 text-center sm:px-16">
-          <div className="glow-rec pointer-events-none absolute -left-20 top-0 h-64 w-64" aria-hidden />
-          <div className="glow-acid pointer-events-none absolute -right-20 bottom-0 h-64 w-64" aria-hidden />
+          <div className="glow-aqua pointer-events-none absolute -left-20 top-0 h-64 w-64" aria-hidden />
+          <div className="glow-lav pointer-events-none absolute -right-20 bottom-0 h-64 w-64" aria-hidden />
           <div className="relative flex flex-col items-center gap-6">
             <OnAirBadge />
             <h2 className="max-w-2xl text-4xl sm:text-5xl">

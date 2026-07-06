@@ -5,15 +5,15 @@
 /*  Dark cinématique, premium, "on air". Signature = gélule bicolore.  */
 /* ------------------------------------------------------------------ */
 @theme {
-  /* Couleurs */
-  --color-bg: #0a0a0d; /* Fond */
-  --color-surface: #15151c; /* Surface / carte */
-  --color-surface-2: #1c1c25; /* Surface légèrement plus claire */
-  --color-border: #26262f; /* Bordure */
-  --color-ink: #f4f4ef; /* Texte principal */
-  --color-muted: #a0a0ac; /* Texte secondaire */
-  --color-rec: #ff4d3d; /* Accent 1 — corail « REC » */
-  --color-acid: #b8ff5c; /* Accent 2 — vert acide */
+  /* Couleurs — palette « Aqua & Lavande » (dark, moderne) */
+  --color-bg: #0c0c12; /* Fond — noir violacé */
+  --color-surface: #16161f; /* Surface / carte */
+  --color-surface-2: #1e1e29; /* Surface légèrement plus claire */
+  --color-border: #2a2a38; /* Bordure */
+  --color-ink: #f4f4f2; /* Texte principal — blanc chaud */
+  --color-muted: #9e9eae; /* Texte secondaire */
+  --color-aqua: #34e0c8; /* Accent 1 — aqua/teal (CTA principal) */
+  --color-lav: #a78bfa; /* Accent 2 — lavande */
 
   /* Typographie (chargée via next/font dans layout.tsx) */
   --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
@@ -91,13 +91,13 @@ h4 {
 
 /* Focus visible accessible partout */
 :focus-visible {
-  outline: 2px solid var(--color-acid);
+  outline: 2px solid var(--color-aqua);
   outline-offset: 3px;
   border-radius: 4px;
 }
 
 ::selection {
-  background: var(--color-acid);
+  background: var(--color-aqua);
   color: var(--color-bg);
 }
 
@@ -129,17 +129,17 @@ h4 {
 }
 
 /* Halo lumineux discret pour les héros / sections */
-.glow-rec {
+.glow-aqua {
   background: radial-gradient(
     50% 50% at 50% 50%,
-    color-mix(in srgb, var(--color-rec) 22%, transparent) 0%,
+    color-mix(in srgb, var(--color-aqua) 20%, transparent) 0%,
     transparent 100%
   );
 }
-.glow-acid {
+.glow-lav {
   background: radial-gradient(
     50% 50% at 50% 50%,
-    color-mix(in srgb, var(--color-acid) 18%, transparent) 0%,
+    color-mix(in srgb, var(--color-lav) 20%, transparent) 0%,
     transparent 100%
   );
 }

@@ -1,6 +1,6 @@
 /**
  * Onde sonore animée — élément décoratif du hero.
- * Barres verticales qui oscillent, en dégradé corail → vert acide.
+ * Barres verticales qui oscillent, en dégradé aqua → lavande.
  * Purement décoratif (aria-hidden) ; respecte prefers-reduced-motion via le CSS global.
  */
 const BARS = [
@@ -16,7 +16,7 @@ export default function SoundWave({ className }: { className?: string }) {
       className={`flex h-full w-full items-center justify-center gap-[6px] ${className ?? ""}`}
     >
       {BARS.map((seed, i) => {
-        // Couleur interpolée le long de l'onde : corail au centre, acide aux bords.
+        // Couleur interpolée le long de l'onde : aqua au centre, lavande aux bords.
         const mix = Math.round(Math.abs(i - BARS.length / 2) / (BARS.length / 2) * 100);
         return (
           <span
@@ -24,7 +24,7 @@ export default function SoundWave({ className }: { className?: string }) {
             className="w-[3px] shrink-0 rounded-pill sm:w-[4px]"
             style={{
               height: `${20 + seed * 55}%`,
-              background: `color-mix(in srgb, var(--color-acid) ${mix}%, var(--color-rec))`,
+              background: `color-mix(in srgb, var(--color-lav) ${mix}%, var(--color-aqua))`,
               transformOrigin: "center",
               animation: "var(--animate-wave)",
               animationDelay: `${(i % 8) * 0.09}s`,

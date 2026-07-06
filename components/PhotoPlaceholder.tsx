@@ -23,8 +23,8 @@ export default function PhotoPlaceholder({
     >
       {/* Texture d'onde discrète */}
       <div className="wave-texture absolute inset-0 opacity-40" aria-hidden />
-      <div className="glow-rec absolute -left-10 -top-10 h-40 w-40" aria-hidden />
-      <div className="glow-acid absolute -bottom-10 -right-10 h-40 w-40" aria-hidden />
+      <div className="glow-aqua absolute -left-10 -top-10 h-40 w-40" aria-hidden />
+      <div className="glow-lav absolute -bottom-10 -right-10 h-40 w-40" aria-hidden />
       <div className="relative flex flex-col items-center gap-3 px-4 text-center">
         <Gelule angle={40} className="h-12 w-6 opacity-80" />
         <span className="text-xs font-medium uppercase tracking-[0.18em] text-muted">

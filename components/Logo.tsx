@@ -27,7 +27,7 @@ export default function Logo({
       {/* La gélule tient lieu de « l » */}
       <Gelule
         angle={22}
-        className="mx-[0.04em] h-[0.92em] w-[0.4em] self-center drop-shadow-[0_0_6px_color-mix(in_srgb,var(--color-acid)_45%,transparent)]"
+        className="mx-[0.04em] h-[0.92em] w-[0.4em] self-center drop-shadow-[0_0_6px_color-mix(in_srgb,var(--color-lav)_45%,transparent)]"
       />
       <span className={primary}>lule</span>
       <span className={secondary}>Cast</span>

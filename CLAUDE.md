@@ -38,9 +38,11 @@ plus `/mentions-legales` et `/confidentialite` (RGPD).
 - **Marque** : jeu sur *Pillule* → la **gélule / capsule** = capsule audio.
   Boutons & badges en **pill** (arrondi complet), **gélule bicolore** récurrente,
   micro-badge **« ● ON AIR »** animé.
-- **Palette (dark)** — fond `#0A0A0D`, surface `#15151C`, bordure `#26262F`,
-  texte `#F4F4EF`, secondaire `#A0A0AC`, **accent corail `#FF4D3D`**,
-  **accent vert acide `#B8FF5C`**. La gélule = corail + vert acide.
+- **Palette (dark) — « Aqua & Lavande »** : fond `#0C0C12` (noir violacé),
+  surface `#16161F`, bordure `#2A2A38`, texte `#F4F4F2`, secondaire `#9E9EAE`,
+  **accent 1 aqua `#34E0C8`** (CTA principal), **accent 2 lavande `#A78BFA`**.
+  La gélule = aqua + lavande. Tokens Tailwind : `aqua` (accent 1) et `lav`
+  (accent 2). Palette choisie par le client (tendance 2026, cf. concurrents).
 - **Typo** : titres *Space Grotesk*, corps *Inter* (via `next/font`).
 - **Ton éditorial** : direct, chaleureux, un brin cool. Phrases courtes.
   Zéro formule creuse (« passionnés depuis toujours », « solution innovante »).
@@ -56,9 +58,12 @@ Les placeholders centralisés vivent dans `lib/site.ts`.
 - `app/` — routes (App Router), `layout.tsx` (fonts + Header/Footer/Grain),
   `globals.css` (design system), `robots.ts`, `sitemap.ts`, `icon.svg` (gélule).
 - `components/` — design system : `Logo`, `Gelule`, `OnAirBadge`, `SoundWave`,
-  `Grain`, `PillButton`, `GeluleCard`, `PhotoPlaceholder`, `Section`, `Header`,
-  `Footer`.
-- `lib/site.ts` — config centrale (nom, nav, placeholders).
+  `Grain`, `PillButton`, `GeluleCard`, `StudioPhoto`, `PhotoPlaceholder`,
+  `Section`, `Header`, `Footer`.
+- `lib/site.ts` — config centrale (nom, nav, placeholders, `photos`).
+- **Photos** : URLs Unsplash de démo centralisées dans `lib/site.ts` (`photos`),
+  rendues via `StudioPhoto` (next/image). Domaine autorisé dans `next.config.ts`
+  (`images.remotePatterns`). ⚠️ Placeholders à remplacer par les vraies photos.
 
 ## Convention de commits
 
