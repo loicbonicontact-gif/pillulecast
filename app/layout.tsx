@@ -52,13 +52,42 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  // Données structurées (SEO) — studio local à Lyon.
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    name: site.name,
+    description: site.shortPitch,
+    url: site.url,
+    areaServed: { "@type": "City", name: site.city },
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: site.city,
+      addressCountry: "FR",
+    },
+    knowsAbout: ["podcast", "enregistrement audio", "captation vidéo"],
+  };
+
   return (
     <html lang="fr" className={`${spaceGrotesk.variable} ${inter.variable}`}>
       <body className="flex min-h-dvh flex-col bg-bg text-ink">
+        {/* Lien d'évitement (accessibilité clavier) */}
+        <a
+          href="#contenu"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:rounded-pill focus:bg-aqua focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-bg"
+        >
+          Aller au contenu
+        </a>
         <Grain />
         <Header />
-        <main className="flex-1">{children}</main>
+        <main id="contenu" className="flex-1">
+          {children}
+        </main>
         <Footer />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
       </body>
     </html>
   );

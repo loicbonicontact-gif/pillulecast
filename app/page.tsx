@@ -4,7 +4,7 @@ import OnAirBadge from "@/components/OnAirBadge";
 import GeluleCard from "@/components/GeluleCard";
 import StudioPhoto from "@/components/StudioPhoto";
 import HeroVideo from "@/components/HeroVideo";
-import YouTubeLite from "@/components/YouTubeLite";
+import PodcastClip from "@/components/PodcastClip";
 import Gelule from "@/components/Gelule";
 import { site, photos, videos } from "@/lib/site";
 
@@ -222,7 +222,7 @@ export default function Home() {
         </div>
         <div className="grid gap-6 sm:grid-cols-2">
           {videos.excerpts.map((v) => (
-            <YouTubeLite key={v.id} id={v.id} title={v.title} start={v.start} />
+            <PodcastClip key={v.id} id={v.id} title={v.title} start={v.start} />
           ))}
         </div>
       </Section>
