@@ -1,11 +1,12 @@
 import Section, { Eyebrow } from "@/components/Section";
 import PillButton from "@/components/PillButton";
 import OnAirBadge from "@/components/OnAirBadge";
-import SoundWave from "@/components/SoundWave";
 import GeluleCard from "@/components/GeluleCard";
 import StudioPhoto from "@/components/StudioPhoto";
+import HeroVideo from "@/components/HeroVideo";
+import YouTubeLite from "@/components/YouTubeLite";
 import Gelule from "@/components/Gelule";
-import { site, photos } from "@/lib/site";
+import { site, photos, videos } from "@/lib/site";
 
 /* Données de contenu — placeholders réalistes, à remplacer. */
 const clients = [
@@ -72,44 +73,34 @@ export default function Home() {
       {/* ---------------------------------------------------------------- */}
       {/* HERO                                                             */}
       {/* ---------------------------------------------------------------- */}
-      <Section className="relative flex min-h-[86vh] flex-col justify-center py-20">
-        {/* Halos d'ambiance */}
-        <div
-          aria-hidden
-          className="glow-aqua pointer-events-none absolute -top-20 left-1/4 h-72 w-72 -translate-x-1/2"
-        />
-        <div
-          aria-hidden
-          className="glow-lav pointer-events-none absolute bottom-10 right-0 h-72 w-72"
-        />
+      <section className="relative flex min-h-[88vh] flex-col justify-center overflow-hidden py-20">
+        {/* Vidéo de fond (chaîne PilluleCast), assombrie */}
+        <HeroVideo />
 
-        <div className="relative flex flex-col items-start gap-8">
-          <OnAirBadge />
+        <Section className="relative z-10">
+          <div className="flex flex-col items-start gap-8">
+            <OnAirBadge />
 
-          <h1 className="max-w-4xl text-5xl font-bold leading-[1.02] sm:text-7xl">
-            Studio podcast &amp; vidéo
-            <br />à <span className="text-aqua">{site.city}</span>.
-          </h1>
+            <h1 className="max-w-4xl text-5xl font-bold leading-[1.02] sm:text-7xl">
+              Studio podcast &amp; vidéo
+              <br />à <span className="text-aqua">{site.city}</span>.
+            </h1>
 
-          <p className="max-w-xl text-lg text-muted sm:text-xl">
-            {site.baseline}
-          </p>
+            <p className="max-w-xl text-lg text-muted sm:text-xl">
+              {site.baseline}
+            </p>
 
-          {/* Onde animée */}
-          <div className="h-20 w-full max-w-2xl sm:h-24">
-            <SoundWave />
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <PillButton href="/reserver" size="lg">
+                Réserver une séance
+              </PillButton>
+              <PillButton href="/tarifs" variant="secondary" size="lg">
+                Voir les tarifs
+              </PillButton>
+            </div>
           </div>
-
-          <div className="flex flex-col gap-3 sm:flex-row">
-            <PillButton href="/reserver" size="lg">
-              Réserver une séance
-            </PillButton>
-            <PillButton href="/tarifs" variant="secondary" size="lg">
-              Voir les tarifs
-            </PillButton>
-          </div>
-        </div>
-      </Section>
+        </Section>
+      </section>
 
       {/* ---------------------------------------------------------------- */}
       {/* BANDEAU CONFIANCE                                                */}
@@ -213,6 +204,26 @@ export default function Home() {
               sizes="(max-width: 1024px) 50vw, 25vw"
             />
           </div>
+        </div>
+      </Section>
+
+      {/* ---------------------------------------------------------------- */}
+      {/* EXTRAITS DE PODCASTS                                             */}
+      {/* ---------------------------------------------------------------- */}
+      <Section className="py-20">
+        <div className="mb-10 flex flex-col gap-3">
+          <Eyebrow>Nos réalisations</Eyebrow>
+          <h2 className="max-w-2xl text-4xl sm:text-5xl">
+            Des extraits enregistrés ici.
+          </h2>
+          <p className="max-w-xl text-muted">
+            Un aperçu des podcasts et vidéos qu&apos;on a tournés au studio.
+          </p>
+        </div>
+        <div className="grid gap-6 sm:grid-cols-2">
+          {videos.excerpts.map((v) => (
+            <YouTubeLite key={v.id} id={v.id} title={v.title} start={v.start} />
+          ))}
         </div>
       </Section>
 

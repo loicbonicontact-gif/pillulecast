@@ -64,6 +64,36 @@ export const photos = {
   },
 } as const;
 
+/**
+ * Vidéos YouTube.
+ * - `banner` : vidéo de fond du hero (chaîne PilluleCast).
+ * - `excerpts` : extraits de podcasts réalisés au studio.
+ * Titres récupérés depuis YouTube (réels, non inventés) — ajustez si besoin.
+ */
+export const videos: {
+  banner: { id: string; title: string };
+  excerpts: { id: string; title: string; start?: number }[];
+} = {
+  banner: { id: "ZxbpCi62PU8", title: "PilluleCast" },
+  excerpts: [
+    {
+      id: "gNowW0HLpLI",
+      title: "De Lyon à Hawaï pour un covering auto",
+      start: 7,
+    },
+    { id: "sm_-pYb0F60", title: "Yuna nous dit tout sur Yufrip" },
+    {
+      id: "2syHf6yyy6o",
+      title: "L'IA va-t-elle remplacer votre dentiste ?",
+    },
+    {
+      id: "Crua-k-ZLRg",
+      title: "Le prix à payer pour devenir strongman",
+      start: 1845,
+    },
+  ],
+};
+
 /** Navigation principale (header + footer). */
 export const nav = [
   { href: "/", label: "Accueil" },
