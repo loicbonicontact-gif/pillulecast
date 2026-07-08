@@ -80,7 +80,7 @@ export default function RootLayout({
         </a>
         <Grain />
         <Header />
-        <main id="contenu" className="flex-1">
+        <main id="contenu" tabIndex={-1} className="flex-1 outline-none">
           {children}
         </main>
         <Footer />

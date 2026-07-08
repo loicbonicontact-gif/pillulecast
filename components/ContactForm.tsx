@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import CheckIcon from "./CheckIcon";
 
 type Status = "idle" | "sending" | "ok" | "error";
 
@@ -44,8 +45,8 @@ export default function ContactForm() {
   if (status === "ok") {
     return (
       <div className="flex flex-col items-start gap-3 rounded-3xl border border-aqua/40 bg-surface p-8">
-        <span className="flex h-10 w-10 items-center justify-center rounded-pill bg-aqua text-lg font-bold text-bg">
-          ✓
+        <span className="flex h-10 w-10 items-center justify-center rounded-pill bg-aqua text-bg">
+          <CheckIcon className="h-5 w-5" />
         </span>
         <h2 className="text-2xl text-ink">Message envoyé.</h2>
         <p className="text-muted">
@@ -55,7 +56,7 @@ export default function ContactForm() {
         <button
           type="button"
           onClick={() => setStatus("idle")}
-          className="mt-2 rounded-pill border border-border px-4 py-2 text-sm text-ink transition-colors hover:border-ink/40"
+          className="mt-2 cursor-pointer rounded-pill border border-border px-4 py-2 text-sm text-ink transition-colors hover:border-ink/40"
         >
           Envoyer un autre message
         </button>
@@ -116,7 +117,7 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={status === "sending"}
-        className="inline-flex w-fit items-center justify-center rounded-pill bg-aqua px-7 py-3.5 text-base font-medium text-bg transition-all hover:brightness-110 disabled:opacity-60"
+        className="inline-flex w-fit cursor-pointer items-center justify-center rounded-pill bg-aqua px-7 py-3.5 text-base font-medium text-bg transition-all duration-300 ease-out-expo hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60"
       >
         {status === "sending" ? "Envoi…" : "Envoyer le message"}
       </button>

@@ -1,3 +1,5 @@
+import { youtubeEmbedUrl } from "@/lib/youtube";
+
 /**
  * Extrait de podcast en lecture automatique : autoplay, muet, en boucle,
  * SANS aucun contrôle de lecture (controls=0 + pointer-events désactivés).
@@ -13,28 +15,14 @@ export default function PodcastClip({
   title: string;
   start?: number;
 }) {
-  const params = new URLSearchParams({
-    autoplay: "1",
-    mute: "1",
-    loop: "1",
-    playlist: id, // requis pour boucler une seule vidéo
-    controls: "0",
-    modestbranding: "1",
-    rel: "0",
-    playsinline: "1",
-    iv_load_policy: "3",
-    disablekb: "1",
-    fs: "0",
-    ...(start ? { start: String(start) } : {}),
-  });
-
   return (
     <figure className="overflow-hidden rounded-3xl border border-border bg-surface">
       <div className="relative aspect-video overflow-hidden">
         <iframe
           title={title}
           tabIndex={-1}
-          src={`https://www.youtube-nocookie.com/embed/${id}?${params.toString()}`}
+          loading="lazy"
+          src={youtubeEmbedUrl(id, { start })}
           allow="autoplay; encrypted-media"
           // Léger sur-cadrage pour masquer le bandeau résiduel de l'embed.
           className="pointer-events-none absolute left-1/2 top-1/2 h-[130%] w-[130%] -translate-x-1/2 -translate-y-1/2"

@@ -22,7 +22,7 @@ export default function GeluleCard({
 }) {
   return (
     <article
-      className={`group relative flex flex-col gap-4 overflow-hidden rounded-3xl border border-border bg-surface p-6 transition-colors duration-300 hover:border-ink/25 sm:p-8 ${className ?? ""}`}
+      className={`group relative flex flex-col gap-4 overflow-hidden rounded-3xl border border-border bg-surface p-6 transition-colors duration-300 ease-out-expo hover:border-ink/25 sm:p-8 ${className ?? ""}`}
     >
       {/* Halo au hover */}
       <div

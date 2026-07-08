@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Section from "@/components/Section";
 import PageHero from "@/components/PageHero";
 import CalEmbed from "@/components/CalEmbed";
+import CheckIcon from "@/components/CheckIcon";
 
 export const metadata: Metadata = {
   title: "Réserver une séance",
@@ -74,9 +75,7 @@ export default function ReserverPage() {
               key={r}
               className="flex gap-3 rounded-2xl border border-border bg-surface/50 p-5 text-sm text-muted"
             >
-              <span aria-hidden className="text-aqua">
-                ✓
-              </span>
+              <CheckIcon className="mt-0.5 h-4 w-4 shrink-0 text-aqua" />
               {r}
             </li>
           ))}

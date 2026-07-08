@@ -6,7 +6,7 @@ type Variant = "primary" | "secondary" | "lav";
 type Size = "md" | "lg";
 
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-pill font-medium tracking-tight transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-50";
+  "inline-flex cursor-pointer items-center justify-center gap-2 rounded-pill font-medium tracking-tight transition-all duration-300 ease-out-expo focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-50";
 
 const sizes: Record<Size, string> = {
   md: "px-5 py-2.5 text-sm",

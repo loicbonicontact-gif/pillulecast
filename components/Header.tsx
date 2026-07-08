@@ -56,7 +56,7 @@ export default function Header() {
           aria-expanded={open}
           aria-controls="mobile-menu"
           aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
-          className="flex h-10 w-10 items-center justify-center rounded-pill border border-border text-ink md:hidden"
+          className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-pill border border-border text-ink transition-colors hover:border-ink/40 md:hidden"
         >
           <span className="relative block h-4 w-5">
             <span
