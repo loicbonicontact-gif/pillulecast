@@ -5,6 +5,7 @@ import GeluleCard from "@/components/GeluleCard";
 import StudioPhoto from "@/components/StudioPhoto";
 import HeroVideo from "@/components/HeroVideo";
 import PodcastClip from "@/components/PodcastClip";
+import ClipTile from "@/components/ClipTile";
 import Gelule from "@/components/Gelule";
 import Reveal from "@/components/Reveal";
 import Marquee from "@/components/Marquee";
@@ -17,17 +18,6 @@ const stats = [
   { to: 400, suffix: "+", label: "épisodes produits" },
   { to: 900, suffix: "+", label: "heures de studio" },
   { to: 60, suffix: "+", label: "créateurs accompagnés" },
-];
-
-/* Mots du bandeau cinétique. */
-const marqueeWords = [
-  "Podcast",
-  "Vidéo",
-  "Capsules",
-  "On air",
-  "Montage",
-  "Clips",
-  "Régie",
 ];
 
 /* Données de contenu — placeholders réalistes, à remplacer. */
@@ -145,21 +135,15 @@ export default function Home() {
         />
       </Section>
 
-      {/* Bandeau cinétique défilant */}
+      {/* Ruban vidéo défilant (extraits de podcasts) */}
       <div className="my-6 border-y border-border/60 bg-surface/20 py-6">
         <Marquee
-          ariaLabel="Podcast, vidéo, capsules, on air, montage, clips, régie"
-          duration={30}
-          gap="0px"
-          items={marqueeWords.flatMap((w, i) => [
-            <span
-              key={`w${i}`}
-              className="font-[family-name:var(--font-display)] text-3xl font-bold text-ink/80 sm:text-4xl"
-            >
-              {w}
-            </span>,
-            <Gelule key={`g${i}`} angle={30} className="mx-8 h-6 w-3 opacity-80" />,
-          ])}
+          ariaLabel="Extraits de podcasts qui défilent"
+          duration={44}
+          gap="1.5rem"
+          items={videos.excerpts.map((v) => (
+            <ClipTile key={v.id} id={v.id} title={v.title} start={v.start} />
+          ))}
         />
       </div>
 
