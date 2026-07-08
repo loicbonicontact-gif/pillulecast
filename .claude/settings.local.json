@@ -19,7 +19,10 @@
       "Read(//Users/loic.boni/.claude/skills/ui-ux-pro-max/**)",
       "Bash(python3 scripts/search.py \"dark mode minimal dashboard\" --domain style -n 1)",
       "Bash(echo \"exit code: $?\")",
-      "Bash(python3 scripts/search.py \"podcast video studio dark premium cinematic booking landing\" --design-system -p \"PilluleCast\" --variance 6 --motion 6 --density 3 --format markdown)"
+      "Bash(python3 scripts/search.py \"podcast video studio dark premium cinematic booking landing\" --design-system -p \"PilluleCast\" --variance 6 --motion 6 --density 3 --format markdown)",
+      "WebFetch(domain:panachestories.fr)",
+      "WebFetch(domain:www.podmax.fr)",
+      "WebFetch(domain:podspace.fr)"
     ]
   }
 }

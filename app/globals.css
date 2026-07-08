@@ -147,6 +147,54 @@ h4 {
   );
 }
 
+/* Apparition au scroll (voir composant <Reveal />) */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.7s var(--ease-out-expo),
+    transform 0.7s var(--ease-out-expo);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Marquee horizontal en boucle (voir composant <Marquee />) */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  /* Longhand + nom statique : évite que l'optimiseur CSS (Lightning) élague
+     les @keyframes quand la durée passe par une variable. */
+  animation-name: marquee;
+  animation-duration: var(--marquee-duration, 30s);
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .marquee-track {
+    animation: none;
+  }
+}
+
 /* Motif d'onde sonore discret (fond de section) */
 .wave-texture {
   background-image: repeating-linear-gradient(

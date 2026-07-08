@@ -6,7 +6,29 @@ import StudioPhoto from "@/components/StudioPhoto";
 import HeroVideo from "@/components/HeroVideo";
 import PodcastClip from "@/components/PodcastClip";
 import Gelule from "@/components/Gelule";
+import Reveal from "@/components/Reveal";
+import Marquee from "@/components/Marquee";
+import Counter from "@/components/Counter";
 import { site, photos, videos } from "@/lib/site";
+
+/* Chiffres clés — PLACEHOLDERS à remplacer par vos vrais chiffres. */
+const stats = [
+  { to: 150, suffix: "+", label: "séances enregistrées" },
+  { to: 400, suffix: "+", label: "épisodes produits" },
+  { to: 900, suffix: "+", label: "heures de studio" },
+  { to: 60, suffix: "+", label: "créateurs accompagnés" },
+];
+
+/* Mots du bandeau cinétique. */
+const marqueeWords = [
+  "Podcast",
+  "Vidéo",
+  "Capsules",
+  "On air",
+  "Montage",
+  "Clips",
+  "Régie",
+];
 
 /* Données de contenu — placeholders réalistes, à remplacer. */
 const clients = [
@@ -109,17 +131,37 @@ export default function Home() {
         <p className="mb-6 text-center text-xs uppercase tracking-[0.2em] text-muted">
           Ils sont passés au studio
         </p>
-        <ul className="grid grid-cols-2 items-center gap-4 sm:grid-cols-4">
-          {clients.map((c) => (
-            <li
-              key={c}
-              className="flex h-16 items-center justify-center rounded-2xl border border-border bg-surface/40 px-4 text-center text-xs text-muted"
+        <Marquee
+          ariaLabel="Clients passés au studio"
+          duration={38}
+          items={[...clients, ...clients, ...clients].map((c, i) => (
+            <span
+              key={i}
+              className="flex h-14 items-center whitespace-nowrap rounded-2xl border border-border bg-surface/40 px-6 text-sm text-muted"
             >
               {c}
-            </li>
+            </span>
           ))}
-        </ul>
+        />
       </Section>
+
+      {/* Bandeau cinétique défilant */}
+      <div className="my-6 border-y border-border/60 bg-surface/20 py-6">
+        <Marquee
+          ariaLabel="Podcast, vidéo, capsules, on air, montage, clips, régie"
+          duration={30}
+          gap="0px"
+          items={marqueeWords.flatMap((w, i) => [
+            <span
+              key={`w${i}`}
+              className="font-[family-name:var(--font-display)] text-3xl font-bold text-ink/80 sm:text-4xl"
+            >
+              {w}
+            </span>,
+            <Gelule key={`g${i}`} angle={30} className="mx-8 h-6 w-3 opacity-80" />,
+          ])}
+        />
+      </div>
 
       {/* ---------------------------------------------------------------- */}
       {/* CE QU'ON FAIT                                                    */}
@@ -133,9 +175,10 @@ export default function Home() {
         </div>
 
         <div className="grid gap-6 md:grid-cols-2">
-          {formats.map((f) => (
+          {formats.map((f, i) => (
+            <Reveal key={f.title} delay={i * 90} className="h-full">
             <GeluleCard
-              key={f.title}
+              className="h-full"
               eyebrow={f.eyebrow}
               title={f.title}
               accent={f.accent}
@@ -160,8 +203,31 @@ export default function Home() {
                 ))}
               </ul>
             </GeluleCard>
+            </Reveal>
           ))}
         </div>
+      </Section>
+
+      {/* ---------------------------------------------------------------- */}
+      {/* CHIFFRES CLÉS                                                    */}
+      {/* ---------------------------------------------------------------- */}
+      <Section className="py-16">
+        <Reveal className="relative overflow-hidden rounded-[2rem] border border-border bg-surface/50 px-6 py-12 sm:px-12">
+          <div className="glow-lav pointer-events-none absolute -right-16 -top-16 h-56 w-56" aria-hidden />
+          <dl className="relative grid grid-cols-2 gap-8 text-center lg:grid-cols-4">
+            {stats.map((s) => (
+              <div key={s.label} className="flex flex-col gap-2">
+                <dt className="order-2 text-sm text-muted">{s.label}</dt>
+                <dd className="order-1 font-[family-name:var(--font-display)] text-4xl font-bold text-aqua sm:text-5xl">
+                  <Counter to={s.to} suffix={s.suffix} />
+                </dd>
+              </div>
+            ))}
+          </dl>
+          <p className="relative mt-8 text-center text-xs text-muted">
+            [À REMPLACER : vos chiffres réels]
+          </p>
+        </Reveal>
       </Section>
 
       {/* ---------------------------------------------------------------- */}
@@ -184,7 +250,7 @@ export default function Home() {
             </PillButton>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <Reveal className="grid grid-cols-2 gap-4">
             <StudioPhoto
               src={photos.studioRoom.src}
               alt={photos.studioRoom.alt}
@@ -203,7 +269,7 @@ export default function Home() {
               className="aspect-[4/3]"
               sizes="(max-width: 1024px) 50vw, 25vw"
             />
-          </div>
+          </Reveal>
         </div>
       </Section>
 
@@ -221,8 +287,10 @@ export default function Home() {
           </p>
         </div>
         <div className="grid gap-6 sm:grid-cols-2">
-          {videos.excerpts.map((v) => (
-            <PodcastClip key={v.id} id={v.id} title={v.title} start={v.start} />
+          {videos.excerpts.map((v, i) => (
+            <Reveal key={v.id} delay={i * 90}>
+              <PodcastClip id={v.id} title={v.title} start={v.start} />
+            </Reveal>
           ))}
         </div>
       </Section>
@@ -237,16 +305,15 @@ export default function Home() {
         </div>
         <div className="grid gap-6 md:grid-cols-2">
           {testimonials.map((t, i) => (
-            <figure
-              key={i}
-              className="flex flex-col gap-5 rounded-3xl border border-border bg-surface p-8"
-            >
-              <Gelule angle={35} className="h-9 w-4 opacity-80" />
-              <blockquote className="text-lg text-ink">{t.quote}</blockquote>
-              <figcaption className="text-sm text-muted">
-                <span className="text-ink">{t.author}</span> — {t.role}
-              </figcaption>
-            </figure>
+            <Reveal key={i} delay={i * 90}>
+              <figure className="flex h-full flex-col gap-5 rounded-3xl border border-border bg-surface p-8">
+                <Gelule angle={35} className="h-9 w-4 opacity-80" />
+                <blockquote className="text-lg text-ink">{t.quote}</blockquote>
+                <figcaption className="text-sm text-muted">
+                  <span className="text-ink">{t.author}</span> — {t.role}
+                </figcaption>
+              </figure>
+            </Reveal>
           ))}
         </div>
       </Section>
@@ -260,7 +327,7 @@ export default function Home() {
             <Eyebrow>FAQ</Eyebrow>
             <h2 className="text-4xl sm:text-5xl">Les questions qui reviennent.</h2>
           </div>
-          <div className="flex flex-col divide-y divide-border border-y border-border">
+          <Reveal className="flex flex-col divide-y divide-border border-y border-border">
             {faq.map((item) => (
               <details key={item.q} className="group py-5">
                 <summary className="flex cursor-pointer items-center justify-between gap-4 text-lg text-ink marker:content-['']">
@@ -275,7 +342,7 @@ export default function Home() {
                 <p className="mt-3 max-w-xl text-muted">{item.a}</p>
               </details>
             ))}
-          </div>
+          </Reveal>
         </div>
       </Section>
 
@@ -283,7 +350,7 @@ export default function Home() {
       {/* CTA FINAL                                                        */}
       {/* ---------------------------------------------------------------- */}
       <Section className="py-20">
-        <div className="relative overflow-hidden rounded-[2rem] border border-border bg-surface px-6 py-16 text-center sm:px-16">
+        <Reveal className="relative overflow-hidden rounded-[2rem] border border-border bg-surface px-6 py-16 text-center sm:px-16">
           <div className="glow-aqua pointer-events-none absolute -left-20 top-0 h-64 w-64" aria-hidden />
           <div className="glow-lav pointer-events-none absolute -right-20 bottom-0 h-64 w-64" aria-hidden />
           <div className="relative flex flex-col items-center gap-6">
@@ -304,7 +371,7 @@ export default function Home() {
               </PillButton>
             </div>
           </div>
-        </div>
+        </Reveal>
       </Section>
     </>
   );
