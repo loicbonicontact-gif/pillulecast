@@ -119,21 +119,3 @@ h4 {
     color-mix(in srgb, var(--color-ink) 4%, transparent) 18px 36px
   );
 }
-
-/* Vignette de miniature vidéo : léger zoom au survol de la carte parente. */
-.thumb {
-  aspect-ratio: 16 / 9;
-  overflow: hidden;
-  position: relative;
-}
-.thumb img {
-  transition: transform 0.5s var(--ease-out-expo);
-}
-.clipcard:hover .thumb img {
-  transform: scale(1.05);
-}
-.clipcard {
-  transition:
-    border-color 0.2s,
-    transform 0.2s;
-}

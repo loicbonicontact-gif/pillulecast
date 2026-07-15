@@ -1,8 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import {
   CheckCircle,
-  Play,
   ArrowRight,
   Quotes,
   Plus,
@@ -11,7 +9,8 @@ import Section, { Eyebrow } from "@/components/Section";
 import PillButton from "@/components/PillButton";
 import LiveBadge from "@/components/LiveBadge";
 import PhIcon from "@/components/PhIcon";
-import { site, videos, youtubeThumbnail } from "@/lib/site";
+import YouTubeEmbed from "@/components/YouTubeEmbed";
+import { site, videos } from "@/lib/site";
 import { pricing } from "@/lib/content";
 
 /* Chiffres clés — PLACEHOLDERS à remplacer par vos vrais chiffres. */
@@ -132,27 +131,21 @@ export default function Home() {
 
           <Link
             href="/reserver"
-            className="clipcard relative block overflow-hidden rounded-2xl border border-border shadow-2xl"
+            className="relative block overflow-hidden rounded-2xl border border-border shadow-2xl"
             style={{ aspectRatio: "16 / 10" }}
           >
-            <div className="thumb h-full" style={{ aspectRatio: "auto" }}>
-              <Image
-                src={youtubeThumbnail(videos.banner.id, "max")}
-                alt="Aperçu de la chaîne PilluleCast"
-                fill
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                className="object-cover"
-                priority
-              />
-            </div>
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/62" />
-            <LiveBadge tone="solid" className="absolute left-4 top-4">
+            <YouTubeEmbed
+              id={videos.banner.id}
+              title="Chaîne PilluleCast — aperçu en direct"
+              fit="cover"
+              lazy={false}
+              className="h-full"
+            />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/62" />
+            <LiveBadge tone="solid" className="pointer-events-none absolute left-4 top-4">
               Chaîne PilluleCast
             </LiveBadge>
-            <span className="absolute left-1/2 top-1/2 flex h-[46px] w-[46px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-pill border border-white/25 bg-black/62 text-white backdrop-blur-sm">
-              <Play size={20} weight="fill" aria-hidden />
-            </span>
-            <span className="absolute bottom-4 left-[18px] max-w-[74%] text-[15px] font-semibold text-white">
+            <span className="pointer-events-none absolute bottom-4 left-[18px] max-w-[74%] text-[15px] font-semibold text-white">
               Le dernier épisode, tourné ici.
             </span>
           </Link>
@@ -184,20 +177,9 @@ export default function Home() {
               <Link
                 key={v.id}
                 href="/reserver"
-                className="clipcard block overflow-hidden rounded-2xl border border-border"
+                className="block overflow-hidden rounded-2xl border border-border transition-colors hover:border-accent/55"
               >
-                <div className="thumb relative">
-                  <Image
-                    src={youtubeThumbnail(v.id)}
-                    alt=""
-                    fill
-                    sizes="(max-width: 1024px) 50vw, 25vw"
-                    className="object-cover"
-                  />
-                  <span className="absolute left-1/2 top-1/2 flex h-[46px] w-[46px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-pill border border-white/25 bg-black/62 text-white backdrop-blur-sm">
-                    <Play size={18} weight="fill" aria-hidden />
-                  </span>
-                </div>
+                <YouTubeEmbed id={v.id} title={v.title} fit="crop" className="aspect-video" />
                 <div className="p-4">
                   <span className="text-[11px] font-semibold uppercase tracking-[0.07em] text-accent-300">
                     Vidéo

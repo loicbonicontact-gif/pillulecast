@@ -66,8 +66,8 @@ export const photos = {
 } as const;
 
 /**
- * Vidéos YouTube (miniatures statiques — plus d'embed autoplay).
- * - `banner` : chaîne PilluleCast, affichée en carte miniature dans le hero.
+ * Vidéos YouTube.
+ * - `banner` : chaîne PilluleCast, en lecture automatique dans le hero.
  * - `excerpts` : extraits de podcasts réalisés au studio (rail « À l'affiche »).
  * Titres récupérés depuis YouTube (réels, non inventés) — ajustez si besoin.
  */
@@ -81,10 +81,27 @@ export const videos = {
   ],
 } as const;
 
-/** URL de miniature YouTube. `size` : "hq" (480×360, cartes) ou "max" (1280×720, hero). */
-export function youtubeThumbnail(id: string, size: "hq" | "max" = "hq") {
-  const file = size === "max" ? "maxresdefault" : "hqdefault";
-  return `https://img.youtube.com/vi/${id}/${file}.jpg`;
+/**
+ * URL d'embed YouTube (domaine nocookie) pour une lecture automatique,
+ * muette, en boucle et SANS AUCUN contrôle de lecture. Le muet est requis
+ * par les navigateurs pour autoriser l'autoplay ; impossible d'avoir à la
+ * fois le son, l'autoplay et zéro contrôle.
+ */
+export function youtubeEmbedUrl(id: string) {
+  const params = new URLSearchParams({
+    autoplay: "1",
+    mute: "1",
+    loop: "1",
+    playlist: id, // requis pour boucler une seule vidéo
+    controls: "0",
+    modestbranding: "1",
+    rel: "0",
+    playsinline: "1",
+    iv_load_policy: "3",
+    disablekb: "1",
+    fs: "0",
+  });
+  return `https://www.youtube-nocookie.com/embed/${id}?${params.toString()}`;
 }
 
 /** Navigation principale (header + footer). */

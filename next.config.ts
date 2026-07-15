@@ -10,12 +10,6 @@ const nextConfig: NextConfig = {
         hostname: "images.unsplash.com",
         pathname: "/**",
       },
-      {
-        // Miniatures YouTube (chaîne + réalisations).
-        protocol: "https",
-        hostname: "img.youtube.com",
-        pathname: "/**",
-      },
     ],
   },
 };
