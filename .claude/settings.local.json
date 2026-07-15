@@ -22,7 +22,8 @@
       "Bash(python3 scripts/search.py \"podcast video studio dark premium cinematic booking landing\" --design-system -p \"PilluleCast\" --variance 6 --motion 6 --density 3 --format markdown)",
       "WebFetch(domain:panachestories.fr)",
       "WebFetch(domain:www.podmax.fr)",
-      "WebFetch(domain:podspace.fr)"
+      "WebFetch(domain:podspace.fr)",
+      "Bash(npx eslint *)"
     ]
   }
 }

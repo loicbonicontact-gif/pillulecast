@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import Section from "@/components/Section";
+import { Info } from "@phosphor-icons/react/dist/ssr";
+import Section, { Eyebrow } from "@/components/Section";
 import PageHero from "@/components/PageHero";
 import PillButton from "@/components/PillButton";
-import Gelule from "@/components/Gelule";
+import PhIcon from "@/components/PhIcon";
 import { pricing, addons, depositNote } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -17,111 +18,91 @@ export default function TarifsPage() {
     <>
       <PageHero
         eyebrow="Tarifs"
-        title="Des prix clairs, par format."
-        subtitle="Pas de devis à rallonge pour une séance simple. Vous choisissez un format, vous savez ce que vous payez."
+        title="Des tarifs simples, sans surprise."
+        subtitle="À l'heure, en demi-journée ou à la journée. Ingé son toujours inclus. Aucun prix n'est définitif tant que vous ne les avez pas validés."
       />
 
       {/* Grille par format */}
-      <Section className="pb-8">
-        <div className="grid gap-6 md:grid-cols-2">
+      <Section className="pb-5 pt-[52px]">
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           {pricing.map((p) => (
-            <article
-              key={p.format}
-              className="relative flex flex-col gap-6 overflow-hidden rounded-3xl border border-border bg-surface p-6 sm:p-8"
-            >
-              <div
-                aria-hidden
-                className={`pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-pill blur-3xl ${
-                  p.accent === "aqua" ? "bg-aqua/20" : "bg-lav/20"
-                }`}
-              />
-              <div className="relative flex items-start justify-between gap-4">
-                <div>
-                  <h2 className="text-3xl">{p.format}</h2>
-                  <p className="mt-2 max-w-xs text-sm text-muted">{p.tagline}</p>
-                </div>
-                <Gelule
-                  angle={35}
-                  className="h-12 w-5 shrink-0"
-                />
+            <div key={p.format} className="flex flex-col rounded-[18px] border border-border bg-surface p-[34px]">
+              <div className="flex items-center gap-3">
+                <PhIcon name={p.icon} size={24} className="text-accent-300" />
+                <h2 className="text-2xl font-semibold text-ink">{p.format}</h2>
               </div>
+              <p className="mt-3 mb-[22px] text-[14.5px] leading-[1.55] text-ink/70">{p.tagline}</p>
 
-              {/* Lignes de prix */}
-              <ul className="relative flex flex-col divide-y divide-border border-y border-border">
-                {p.rows.map((r) => (
-                  <li
+              <div className="flex flex-col">
+                {p.rows.map((r, i) => (
+                  <div
                     key={r.label}
-                    className="flex items-center justify-between py-3"
+                    className={`flex items-baseline justify-between py-[15px] ${
+                      i < p.rows.length - 1 ? "border-b border-border" : ""
+                    }`}
                   >
-                    <span className="text-muted">{r.label}</span>
-                    <span className="text-lg font-medium text-ink">{r.price}</span>
-                  </li>
+                    <span className="text-[15px] text-ink/80">{r.label}</span>
+                    <span className="text-[19px] font-semibold text-ink">{r.price}</span>
+                  </div>
                 ))}
-              </ul>
-
-              {/* Inclus */}
-              <ul className="relative flex flex-wrap gap-2">
-                {p.includes.map((inc) => (
-                  <li
-                    key={inc}
-                    className="rounded-pill border border-border bg-bg/40 px-3 py-1 text-xs text-ink/80"
-                  >
-                    {inc}
-                  </li>
-                ))}
-              </ul>
-
-              <div className="relative mt-auto pt-2">
-                <PillButton
-                  href="/reserver"
-                  variant={p.accent === "aqua" ? "primary" : "lav"}
-                  className="w-full sm:w-auto"
-                >
-                  Réserver ce format
-                </PillButton>
               </div>
-            </article>
+
+              <div className="my-[22px] flex flex-wrap gap-2">
+                {p.includes.map((inc) => (
+                  <span key={inc} className="rounded-pill border border-border px-3 py-1.5 text-xs text-ink/80">
+                    {inc}
+                  </span>
+                ))}
+              </div>
+
+              <PillButton href="/reserver" className="mt-auto w-full justify-center">
+                Réserver une {p.format.toLowerCase()}
+              </PillButton>
+            </div>
           ))}
         </div>
 
-        {/* Note acompte */}
-        <p className="mt-6 rounded-2xl border border-border bg-surface/50 px-5 py-4 text-sm text-muted">
-          <span className="font-medium text-ink">Acompte de 30 % à la réservation</span>
-          , solde sur place. {depositNote}
+        <p className="mt-[18px] flex items-start gap-2.5 text-[13.5px] leading-[1.5] text-ink/55">
+          <Info size={16} className="mt-px shrink-0 text-accent-300" aria-hidden />
+          {depositNote}
         </p>
       </Section>
 
       {/* Add-ons */}
-      <Section className="py-16">
-        <h2 className="mb-8 text-3xl sm:text-4xl">Pour aller plus loin</h2>
-        <div className="grid gap-6 md:grid-cols-3">
+      <Section className="py-[52px]">
+        <Eyebrow>Prestations complémentaires</Eyebrow>
+        <h2 className="mt-4 mb-7 text-[26px] font-semibold leading-[1.1] tracking-[-0.02em] text-ink sm:text-[32px]">
+          Pour aller plus loin.
+        </h2>
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
           {addons.map((a) => (
-            <article
-              key={a.title}
-              className="flex flex-col gap-3 rounded-3xl border border-border bg-surface p-6"
-            >
-              <h3 className="text-xl text-ink">{a.title}</h3>
-              <p className="text-sm text-muted">{a.desc}</p>
-              <span className="mt-auto pt-2 text-sm font-medium text-aqua">
-                {a.price}
-              </span>
-            </article>
+            <div key={a.title} className="rounded-2xl border border-border bg-surface p-7">
+              <PhIcon name={a.icon} size={24} className="text-accent-300" />
+              <h3 className="mt-3.5 mb-2 text-[19px] font-semibold leading-[1.15] text-ink">{a.title}</h3>
+              <p className="mb-4 text-[14.5px] leading-[1.6] text-ink/72">{a.desc}</p>
+              <span className="text-[15px] font-semibold text-accent-300">{a.price}</span>
+            </div>
           ))}
         </div>
       </Section>
 
       {/* CTA */}
-      <Section className="pb-24">
-        <div className="flex flex-col items-center gap-6 rounded-[2rem] border border-border bg-surface px-6 py-14 text-center">
-          <h2 className="max-w-xl text-3xl sm:text-4xl">
-            Une question sur le format qui vous convient ?
-          </h2>
-          <div className="flex flex-col gap-3 sm:flex-row">
+      <Section className="pb-[72px]">
+        <div className="relative flex flex-col items-center justify-between gap-7 overflow-hidden rounded-[20px] border border-border bg-[radial-gradient(700px_340px_at_90%_-60%,var(--color-accent-800)_0%,transparent_62%),var(--color-surface)] p-9 sm:flex-row sm:p-12">
+          <div>
+            <h2 className="text-[26px] font-semibold leading-[1.14] tracking-[-0.02em] text-ink sm:text-[30px]">
+              Un projet particulier ?
+            </h2>
+            <p className="mt-3 max-w-[46ch] text-[15.5px] leading-[1.6] text-ink/74">
+              Devis sur mesure pour les séries, les formats longs ou les captations. On en discute.
+            </p>
+          </div>
+          <div className="flex gap-3.5">
             <PillButton href="/reserver" size="lg">
-              Réserver une séance
+              Réserver
             </PillButton>
             <PillButton href="/contact" variant="secondary" size="lg">
-              Nous contacter
+              Demander un devis
             </PillButton>
           </div>
         </div>

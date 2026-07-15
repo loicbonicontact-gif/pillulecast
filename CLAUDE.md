@@ -18,8 +18,8 @@ plus `/mentions-legales` et `/confidentialite` (RGPD).
   dans `node_modules/next/dist/docs/` avant d'écrire du code** (cf. AGENTS.md).
 - **Tailwind v4** = config CSS-first via `@theme` dans `app/globals.css`
   (PAS de `tailwind.config.js`). Tokens exposés en utilitaires : `bg-bg`,
-  `bg-surface`, `text-ink`, `text-muted`, `text-rec`, `text-acid`,
-  `rounded-pill`, etc.
+  `bg-surface`, `text-ink`, `text-muted`, `text-accent`, `text-accent-300`,
+  `bg-live`, `rounded-pill`, etc.
 - Alias d'import : `@/*` → racine du projet.
 - Déploiement cible : **Vercel** (ne pas déployer soi-même).
 - **Réservation** : embed **Cal.com** via `@calcom/embed-react`, lien lu depuis
@@ -31,19 +31,29 @@ plus `/mentions-legales` et `/confidentialite` (RGPD).
 - **Secrets** : tout dans `.env.local` (gitignoré). `.env.example` documenté.
   Ne jamais committer de clé, ne pas demander les clés à l'utilisateur.
 
-## Direction artistique
+## Direction artistique (refonte « Studio en direct »)
 
-- **Ambiance** : dark cinématique, premium, « on air ». Épuré, beaucoup de
-  respiration, grain léger, motif d'onde sonore discret.
-- **Marque** : jeu sur *Pillule* → la **gélule / capsule** = capsule audio.
-  Boutons & badges en **pill** (arrondi complet), **gélule bicolore** récurrente,
-  micro-badge **« ● ON AIR »** animé.
-- **Palette (dark) — « Aqua & Lavande »** : fond `#0C0C12` (noir violacé),
-  surface `#16161F`, bordure `#2A2A38`, texte `#F4F4F2`, secondaire `#9E9EAE`,
-  **accent 1 aqua `#34E0C8`** (CTA principal), **accent 2 lavande `#A78BFA`**.
-  La gélule = aqua + lavande. Tokens Tailwind : `aqua` (accent 1) et `lav`
-  (accent 2). Palette choisie par le client (tendance 2026, cf. concurrents).
-- **Typo** : titres *Space Grotesk*, corps *Inter* (via `next/font`).
+- **Ambiance** : dark neutre-bleuté, pro, « studio en direct » (broadcast,
+  rythmé, orienté réalisations vidéo). Plus sobre que la V1 — pas de grain,
+  pas de marquees défilants, pas de glows saturés, pas de compteurs animés.
+- **Marque** : la **gélule** reste le concept mais en version **sobre** : une
+  petite barre verticale arrondie en dégradé accent (voir `components/Gelule.tsx`,
+  utilisée uniquement dans le logo). Marqueur **« ● en direct »** : point rouge
+  `#e0483d` qui pulse lentement (2,4 s), remplace l'ancien badge « ON AIR ».
+- **Palette — mono-accent blurple** : fond `#161826`, surface `#232532`,
+  bordure/divider `rgba(233,233,237,.16)`, texte `#E9E9ED`, **accent unique
+  `#9184D9`** (+ variantes `accent-300 #D2CEFD`, `accent-600 #796CBF`,
+  `accent-800 #423A6A`, `accent-900 #2B2741`). Bande de stats sur
+  `--color-section #262A60` — seule zone saturée du site.
+- **Boutons** : **contournés** (bordure sur fond transparent), jamais pleins.
+  `primary` = bordure/texte accent ; `secondary` = bordure neutre.
+- **Typo** : *Inter* uniquement (titres 600/700, `letter-spacing` -0.02/-0.03em).
+- **Icônes** : Phosphor (`@phosphor-icons/react/dist/ssr`, import direct — pas
+  de `"use client"` requis). Mapping par nom dans `components/PhIcon.tsx` pour
+  les icônes pilotées par `lib/content.ts`.
+- **Vidéos** : miniatures YouTube **statiques** (`img.youtube.com`, plus
+  d'iframe autoplay) — carte hero + rail « À l'affiche », tout pointe vers
+  `/reserver`. Domaine autorisé dans `next.config.ts`.
 - **Ton éditorial** : direct, chaleureux, un brin cool. Phrases courtes.
   Zéro formule creuse (« passionnés depuis toujours », « solution innovante »).
 
@@ -55,15 +65,20 @@ Les placeholders centralisés vivent dans `lib/site.ts`.
 
 ## Structure de code
 
-- `app/` — routes (App Router), `layout.tsx` (fonts + Header/Footer/Grain),
+- `app/` — routes (App Router), `layout.tsx` (fonts + Header/Footer),
   `globals.css` (design system), `robots.ts`, `sitemap.ts`, `icon.svg` (gélule).
-- `components/` — design system : `Logo`, `Gelule`, `OnAirBadge`, `SoundWave`,
-  `Grain`, `PillButton`, `GeluleCard`, `StudioPhoto`, `PhotoPlaceholder`,
-  `Section`, `Header`, `Footer`.
-- `lib/site.ts` — config centrale (nom, nav, placeholders, `photos`).
+- `components/` — `Logo`, `Gelule` (barre sobre), `LiveBadge` (badge « en
+  direct »), `PillButton` (contourné), `PhIcon` (registre d'icônes Phosphor),
+  `StudioPhoto`, `Section`/`Eyebrow`, `PageHero`, `Header`, `Footer`,
+  `CalEmbed`, `ContactForm`, `FormatSelect`, `LegalLayout`.
+- `lib/site.ts` — config centrale (nom, nav, placeholders, `photos`,
+  `videos`, `youtubeThumbnail()`).
+- `lib/content.ts` — contenu éditorial (tarifs, add-ons, studio), chaque item
+  porte un champ `icon` (nom Phosphor, résolu via `PhIcon`).
 - **Photos** : URLs Unsplash de démo centralisées dans `lib/site.ts` (`photos`),
-  rendues via `StudioPhoto` (next/image). Domaine autorisé dans `next.config.ts`
-  (`images.remotePatterns`). ⚠️ Placeholders à remplacer par les vraies photos.
+  rendues via `StudioPhoto` (next/image). Domaines autorisés dans
+  `next.config.ts` (`images.remotePatterns` : Unsplash + `img.youtube.com`).
+  ⚠️ Placeholders à remplacer par les vraies photos.
 
 ## Convention de commits
 
@@ -78,6 +93,9 @@ Un commit à la fin de chaque phase validée.
 - [x] **Phase 2** — `/reserver` (embed Cal.com via `@calcom/embed-react`,
   fallback si lien non configuré) + `/contact` (formulaire → `app/api/contact`
   + Resend, log si clé absente) + `/mentions-legales` + `/confidentialite`.
-- [ ] **Phase 3** — polish responsive/a11y/SEO final.
+- [x] **Phase 3** — refonte complète « Studio en direct » (nouveau design
+  system, 5 pages recréées d'après un handoff `.dc.html`) : palette mono-accent
+  blurple, boutons contournés, icônes Phosphor, plus de marquees/glows/
+  compteurs animés/grain, vidéos en miniatures statiques (fini l'autoplay).
 
 Contenu éditorial des pages : `lib/content.ts` (tarifs, add-ons, studio).

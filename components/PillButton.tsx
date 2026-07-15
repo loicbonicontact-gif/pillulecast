@@ -1,27 +1,27 @@
 import Link from "next/link";
 import type { ComponentProps, ReactNode } from "react";
 
-/** Bouton « pill » (arrondi complet) — signature de la marque. */
-type Variant = "primary" | "secondary" | "lav";
+/**
+ * Bouton pill contourné (bordure sur fond transparent) — jamais plein.
+ * `primary` : bordure + texte accent, tint accent au survol/pressé.
+ * `secondary` : bordure neutre, texte clair, tint surface au survol.
+ */
+type Variant = "primary" | "secondary";
 type Size = "md" | "lg";
 
 const base =
-  "inline-flex cursor-pointer items-center justify-center gap-2 rounded-pill font-medium tracking-tight transition-all duration-300 ease-out-expo focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-50";
+  "inline-flex cursor-pointer items-center justify-center gap-2 rounded-pill border font-medium tracking-tight transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-50";
 
 const sizes: Record<Size, string> = {
   md: "px-5 py-2.5 text-sm",
-  lg: "px-7 py-3.5 text-base",
+  lg: "px-6 py-[13px] text-[15px]",
 };
 
 const variants: Record<Variant, string> = {
-  // Aqua — action principale (CTA)
   primary:
-    "bg-aqua text-bg hover:brightness-110 hover:shadow-[0_8px_30px_-8px_var(--color-aqua)] active:scale-[0.98]",
-  // Contour discret — action secondaire
+    "border-accent text-accent-300 bg-transparent hover:bg-accent/12 active:bg-accent/22",
   secondary:
-    "border border-border bg-surface/60 text-ink hover:border-ink/40 hover:bg-surface active:scale-[0.98]",
-  // Lavande — accent alternatif
-  lav: "bg-lav text-bg hover:brightness-105 hover:shadow-[0_8px_30px_-8px_var(--color-lav)] active:scale-[0.98]",
+    "border-border text-ink bg-transparent hover:bg-ink/6 active:bg-ink/12",
 };
 
 type PillButtonProps = {

@@ -20,21 +20,9 @@ export default function StudioPhoto({
 }) {
   return (
     <div
-      className={`relative overflow-hidden rounded-3xl border border-border bg-surface-2 ${className ?? ""}`}
+      className={`relative overflow-hidden rounded-2xl border border-border bg-surface-2 ${className ?? ""}`}
     >
-      <Image
-        src={src}
-        alt={alt}
-        fill
-        sizes={sizes}
-        priority={priority}
-        className="object-cover"
-      />
-      {/* Voile sombre pour l'homogénéité cinématique */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-bg/50 via-transparent to-transparent"
-      />
+      <Image src={src} alt={alt} fill sizes={sizes} priority={priority} className="object-cover" />
     </div>
   );
 }

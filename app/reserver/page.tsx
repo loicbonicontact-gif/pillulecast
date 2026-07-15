@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import { Microphone, SlidersHorizontal, DownloadSimple } from "@phosphor-icons/react/dist/ssr";
 import Section from "@/components/Section";
 import PageHero from "@/components/PageHero";
 import CalEmbed from "@/components/CalEmbed";
-import CheckIcon from "@/components/CheckIcon";
+import FormatSelect from "@/components/FormatSelect";
+import { depositNote } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Réserver une séance",
@@ -11,28 +13,18 @@ export const metadata: Metadata = {
   alternates: { canonical: "/reserver" },
 };
 
-const steps = [
+const recap = [
+  { Icon: Microphone, title: "Ingé son en régie", desc: "Il pilote la prise, vous parlez." },
   {
-    n: "1",
-    title: "Choisir un créneau",
-    desc: "Sélectionnez le jour et l'heure qui vous arrangent dans le calendrier.",
+    Icon: SlidersHorizontal,
+    title: "Installation & réglages",
+    desc: "Tout est prêt à votre arrivée.",
   },
   {
-    n: "2",
-    title: "Payer l'acompte",
-    desc: "Un acompte de 30 % confirme et bloque votre créneau (paiement sécurisé).",
+    Icon: DownloadSimple,
+    title: "Fichiers le jour même",
+    desc: "Vous repartez avec vos rushes.",
   },
-  {
-    n: "3",
-    title: "C'est confirmé",
-    desc: "Vous recevez la confirmation et des rappels automatiques. Le solde se règle sur place.",
-  },
-];
-
-const reassurance = [
-  "Annulation / report possible [À REMPLACER : délai, ex. jusqu'à 48h avant].",
-  "Rappels automatiques par email avant la séance.",
-  "Paiement de l'acompte sécurisé (Stripe via Cal.com).",
 ];
 
 export default function ReserverPage() {
@@ -40,46 +32,50 @@ export default function ReserverPage() {
     <>
       <PageHero
         eyebrow="Réserver"
-        title="Réservez en trois étapes."
-        subtitle="Pas d'aller-retour par email. Vous choisissez, vous confirmez, on vous attend."
+        title="Bloquez votre créneau."
+        subtitle="Choisissez un format, une date, réglez l'acompte de 30 % et c'est confirmé. Le solde se règle sur place le jour de la séance."
+        size="md"
       />
 
-      {/* Étapes */}
-      <Section className="pb-12">
-        <ol className="grid gap-6 md:grid-cols-3">
-          {steps.map((s) => (
-            <li
-              key={s.n}
-              className="flex flex-col gap-3 rounded-3xl border border-border bg-surface p-6"
-            >
-              <span className="flex h-10 w-10 items-center justify-center rounded-pill bg-aqua text-lg font-bold text-bg">
-                {s.n}
-              </span>
-              <h2 className="text-xl text-ink">{s.title}</h2>
-              <p className="text-sm text-muted">{s.desc}</p>
-            </li>
-          ))}
-        </ol>
-      </Section>
+      <Section className="grid grid-cols-1 gap-8 py-11 lg:grid-cols-[1.5fr_1fr] lg:items-start">
+        {/* Gauche : format + calendrier */}
+        <div>
+          <p className="mb-3.5 text-xs font-semibold uppercase tracking-[0.08em] text-ink/55">
+            1 · Choisissez votre format
+          </p>
+          <FormatSelect />
 
-      {/* Embed Cal.com */}
-      <Section className="pb-12">
-        <CalEmbed />
-      </Section>
+          <p className="mb-3.5 text-xs font-semibold uppercase tracking-[0.08em] text-ink/55">
+            2 · Choisissez une date &amp; une heure
+          </p>
+          <CalEmbed />
+        </div>
 
-      {/* Réassurance */}
-      <Section className="pb-24">
-        <ul className="grid gap-4 sm:grid-cols-3">
-          {reassurance.map((r) => (
-            <li
-              key={r}
-              className="flex gap-3 rounded-2xl border border-border bg-surface/50 p-5 text-sm text-muted"
-            >
-              <CheckIcon className="mt-0.5 h-4 w-4 shrink-0 text-aqua" />
-              {r}
-            </li>
-          ))}
-        </ul>
+        {/* Droite : récapitulatif */}
+        <aside className="sticky top-[88px] rounded-[18px] border border-border bg-surface p-[30px]">
+          <h2 className="mb-1 text-xl font-semibold text-ink">Récapitulatif</h2>
+          <p className="mb-[22px] text-sm text-ink/62">Ce qui vous attend le jour J.</p>
+
+          <div className="flex flex-col gap-4">
+            {recap.map(({ Icon, title, desc }) => (
+              <div key={title} className="flex gap-3">
+                <Icon size={19} className="mt-0.5 shrink-0 text-accent-300" aria-hidden />
+                <div>
+                  <p className="text-[15px] font-medium text-ink">{title}</p>
+                  <p className="mt-1 text-[13.5px] leading-[1.5] text-ink/62">{desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <hr className="my-6 border-border" />
+
+          <div className="mb-1.5 flex items-baseline justify-between">
+            <span className="text-sm text-ink/70">Acompte à la réservation</span>
+            <span className="text-[17px] font-semibold text-ink">30 %</span>
+          </div>
+          <p className="text-[13px] leading-[1.5] text-ink/55">{depositNote}</p>
+        </aside>
       </Section>
     </>
   );

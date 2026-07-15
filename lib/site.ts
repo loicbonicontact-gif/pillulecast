@@ -6,8 +6,9 @@
 
 export const site = {
   name: "PilluleCast",
-  // Baseline principale affichée dans le hero.
-  baseline: "[À REMPLACER : baseline, ex. « Votre voix, en capsule. »]",
+  // Sous-titre affiché sous le H1 du hero (Accueil).
+  baseline:
+    "Podcast & vidéo à Lyon. Cabine traitée, plateau éclairé, ingé son en régie. Vous venez avec vos idées — on capte, on cadre, vous repartez avec vos fichiers.",
   shortPitch:
     "Studio de podcast & vidéo à Lyon. Enregistrez, filmez, repartez avec vos capsules.",
   city: "Lyon",
@@ -65,34 +66,26 @@ export const photos = {
 } as const;
 
 /**
- * Vidéos YouTube.
- * - `banner` : vidéo de fond du hero (chaîne PilluleCast).
- * - `excerpts` : extraits de podcasts réalisés au studio.
+ * Vidéos YouTube (miniatures statiques — plus d'embed autoplay).
+ * - `banner` : chaîne PilluleCast, affichée en carte miniature dans le hero.
+ * - `excerpts` : extraits de podcasts réalisés au studio (rail « À l'affiche »).
  * Titres récupérés depuis YouTube (réels, non inventés) — ajustez si besoin.
  */
-export const videos: {
-  banner: { id: string; title: string };
-  excerpts: { id: string; title: string; start?: number }[];
-} = {
+export const videos = {
   banner: { id: "ZxbpCi62PU8", title: "PilluleCast" },
   excerpts: [
-    {
-      id: "gNowW0HLpLI",
-      title: "De Lyon à Hawaï pour un covering auto",
-      start: 7,
-    },
+    { id: "gNowW0HLpLI", title: "De Lyon à Hawaï pour un covering auto" },
     { id: "sm_-pYb0F60", title: "Yuna nous dit tout sur Yufrip" },
-    {
-      id: "2syHf6yyy6o",
-      title: "L'IA va-t-elle remplacer votre dentiste ?",
-    },
-    {
-      id: "Crua-k-ZLRg",
-      title: "Le prix à payer pour devenir strongman",
-      start: 1845,
-    },
+    { id: "2syHf6yyy6o", title: "L'IA va-t-elle remplacer votre dentiste ?" },
+    { id: "Crua-k-ZLRg", title: "Le prix à payer pour devenir strongman" },
   ],
-};
+} as const;
+
+/** URL de miniature YouTube. `size` : "hq" (480×360, cartes) ou "max" (1280×720, hero). */
+export function youtubeThumbnail(id: string, size: "hq" | "max" = "hq") {
+  const file = size === "max" ? "maxresdefault" : "hqdefault";
+  return `https://img.youtube.com/vi/${id}/${file}.jpg`;
+}
 
 /** Navigation principale (header + footer). */
 export const nav = [

@@ -8,7 +8,7 @@
 export const pricing = [
   {
     format: "Capsule Audio",
-    accent: "aqua" as const,
+    icon: "microphone-stage" as const,
     tagline: "Enregistrement audio, jusqu'à 4 micros, ingé son inclus.",
     rows: [
       { label: "L'heure", price: "~55 €" },
@@ -19,7 +19,7 @@ export const pricing = [
   },
   {
     format: "Capsule Vidéo",
-    accent: "lav" as const,
+    icon: "video-camera" as const,
     tagline: "Multi-caméra, jusqu'à 3 invités, régie + ingé son.",
     rows: [
       { label: "L'heure", price: "~110 €" },
@@ -34,16 +34,19 @@ export const pricing = [
 export const addons = [
   {
     title: "Montage podcast",
+    icon: "scissors" as const,
     price: "à partir de ~70 €/épisode",
     desc: "On monte, on nettoie, on égalise. Vous publiez.",
   },
   {
     title: "Clips réseaux sociaux",
+    icon: "device-mobile" as const,
     price: "à partir de ~40 €/clip",
     desc: "Formats verticaux sous-titrés, prêts pour Insta / TikTok / LinkedIn.",
   },
   {
     title: "Captation live / streaming",
+    icon: "broadcast" as const,
     price: "[À REMPLACER : sur devis]",
     desc: "Diffusion en direct multi-plateformes. Parlons-en.",
   },
@@ -57,6 +60,7 @@ export const depositNote =
 export const studioSpaces = [
   {
     title: "Cabine audio",
+    icon: "microphone" as const,
     desc: "Traitée acoustiquement pour une voix propre, sans écho.",
     items: [
       "[À REMPLACER : modèles de micros, ex. Shure SM7B]",
@@ -66,6 +70,7 @@ export const studioSpaces = [
   },
   {
     title: "Plateau vidéo",
+    icon: "video-camera" as const,
     desc: "Éclairage maîtrisé et fonds au choix pour une image nette.",
     items: [
       "[À REMPLACER : caméras, ex. Sony / Blackmagic]",
@@ -75,6 +80,7 @@ export const studioSpaces = [
   },
   {
     title: "Régie",
+    icon: "sliders-horizontal" as const,
     desc: "Un ingé son pilote la prise pendant que vous parlez.",
     items: [
       "[À REMPLACER : console de mixage]",

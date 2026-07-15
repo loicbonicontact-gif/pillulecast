@@ -1,17 +1,9 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Inter } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import Grain from "@/components/Grain";
 import { site } from "@/lib/site";
-
-// Titres : grotesque expressif. Corps : Inter, très lisible.
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
-  subsets: ["latin"],
-  display: "swap",
-});
 
 const inter = Inter({
   variable: "--font-inter",
@@ -69,16 +61,15 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="fr" className={`${spaceGrotesk.variable} ${inter.variable}`}>
+    <html lang="fr" className={inter.variable}>
       <body className="flex min-h-dvh flex-col bg-bg text-ink">
         {/* Lien d'évitement (accessibilité clavier) */}
         <a
           href="#contenu"
-          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:rounded-pill focus:bg-aqua focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-bg"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:rounded-pill focus:border focus:border-accent focus:bg-bg focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-accent-300"
         >
           Aller au contenu
         </a>
-        <Grain />
         <Header />
         <main id="contenu" tabIndex={-1} className="flex-1 outline-none">
           {children}

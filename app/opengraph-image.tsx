@@ -15,54 +15,39 @@ export default function OpengraphImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: "#0C0C12",
-          color: "#F4F4F2",
+          background: "#161826",
+          color: "#E9E9ED",
           padding: "80px",
           fontFamily: "sans-serif",
         }}
       >
-        {/* Badge ON AIR */}
+        {/* Marqueur EN DIRECT */}
         <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
           <div
             style={{
               width: "16px",
               height: "16px",
               borderRadius: "999px",
-              background: "#34E0C8",
+              background: "#E0483D",
             }}
           />
-          <div
-            style={{
-              fontSize: "24px",
-              letterSpacing: "6px",
-              color: "#9E9EAE",
-            }}
-          >
-            ON AIR
+          <div style={{ fontSize: "24px", letterSpacing: "6px", color: "#9E9EAE" }}>
+            EN DIRECT
           </div>
         </div>
 
-        {/* Titre + gélule */}
-        <div style={{ display: "flex", alignItems: "center", gap: "48px" }}>
-          {/* Gélule bicolore */}
+        {/* Titre + gélule sobre */}
+        <div style={{ display: "flex", alignItems: "center", gap: "40px" }}>
           <div
             style={{
-              width: "96px",
-              height: "220px",
-              borderRadius: "48px",
-              overflow: "hidden",
-              display: "flex",
-              flexDirection: "column",
-              transform: "rotate(18deg)",
+              width: "24px",
+              height: "150px",
+              borderRadius: "999px",
+              background: "linear-gradient(180deg, #D2CEFD, #796CBF)",
             }}
-          >
-            <div style={{ flex: 1, background: "#34E0C8" }} />
-            <div style={{ flex: 1, background: "#A78BFA" }} />
-          </div>
+          />
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <div style={{ fontSize: "88px", fontWeight: 700, lineHeight: 1.05 }}>
-              PilluleCast
-            </div>
+            <div style={{ fontSize: "88px", fontWeight: 700, lineHeight: 1.05 }}>PilluleCast</div>
             <div style={{ fontSize: "40px", color: "#9E9EAE", marginTop: "12px" }}>
               Studio podcast &amp; vidéo à Lyon
             </div>
@@ -70,9 +55,7 @@ export default function OpengraphImage() {
         </div>
 
         {/* Pied */}
-        <div style={{ fontSize: "30px", color: "#34E0C8" }}>
-          Réserver une séance →
-        </div>
+        <div style={{ fontSize: "30px", color: "#D2CEFD" }}>Réserver une séance →</div>
       </div>
     ),
     size

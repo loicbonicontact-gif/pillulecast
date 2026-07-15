@@ -12,6 +12,8 @@ type ContactPayload = {
   email?: unknown;
   subject?: unknown;
   message?: unknown;
+  // Format sélectionné dans le segmented control (optionnel).
+  format?: unknown;
   // Champ piège anti-spam (doit rester vide).
   company?: unknown;
 };
@@ -31,7 +33,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Requête invalide." }, { status: 400 });
   }
 
-  const { name, email, subject, message, company } = body;
+  const { name, email, subject, message, format, company } = body;
 
   // Honeypot : si rempli, on fait comme si tout allait bien (bot).
   if (isNonEmptyString(company)) {
@@ -55,6 +57,7 @@ export async function POST(request: Request) {
   const cleanEmail = (email as string).trim();
   const cleanSubject = (subject as string).trim();
   const cleanMessage = (message as string).trim();
+  const cleanFormat = isNonEmptyString(format) ? format.trim() : null;
 
   const apiKey = process.env.RESEND_API_KEY;
   const to = process.env.CONTACT_TO_EMAIL;
@@ -64,7 +67,7 @@ export async function POST(request: Request) {
   if (!apiKey || !to || !from) {
     console.info(
       "[contact] RESEND non configuré — message reçu (non envoyé) :",
-      { name: cleanName, email: cleanEmail, subject: cleanSubject, message: cleanMessage }
+      { name: cleanName, email: cleanEmail, subject: cleanSubject, format: cleanFormat, message: cleanMessage }
     );
     return NextResponse.json({ ok: true, delivered: false });
   }
@@ -78,7 +81,7 @@ export async function POST(request: Request) {
       to,
       replyTo: cleanEmail,
       subject: `[PilluleCast] ${cleanSubject}`,
-      text: `De : ${cleanName} <${cleanEmail}>\n\n${cleanMessage}`,
+      text: `De : ${cleanName} <${cleanEmail}>${cleanFormat ? `\nFormat : ${cleanFormat}` : ""}\n\n${cleanMessage}`,
     });
 
     if (error) {

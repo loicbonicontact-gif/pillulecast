@@ -2,64 +2,55 @@
 
 /* ------------------------------------------------------------------ */
 /*  PilluleCast — Design tokens (Tailwind v4 CSS-first config)         */
-/*  Dark cinématique, premium, "on air". Signature = gélule bicolore.  */
+/*  Refonte « Studio en direct » : sombre neutre-bleuté, mono-accent   */
+/*  blurple, boutons contournés, signature sobre (plus de gélule       */
+/*  bicolore tape-à-l'œil, plus de marquees/glows saturés/compteurs).  */
 /* ------------------------------------------------------------------ */
 @theme {
-  /* Couleurs — palette « Aqua & Lavande » (dark, moderne) */
-  --color-bg: #0c0c12; /* Fond — noir violacé */
-  --color-surface: #16161f; /* Surface / carte */
-  --color-surface-2: #1e1e29; /* Surface légèrement plus claire */
-  --color-border: #2a2a38; /* Bordure */
-  --color-ink: #f4f4f2; /* Texte principal — blanc chaud */
-  --color-muted: #9e9eae; /* Texte secondaire */
-  --color-aqua: #34e0c8; /* Accent 1 — aqua/teal (CTA principal) */
-  --color-lav: #a78bfa; /* Accent 2 — lavande */
+  /* Fond & surfaces */
+  --color-bg: #161826;
+  --color-surface: #232532;
+  --color-surface-2: color-mix(in srgb, var(--color-surface) 88%, white);
+  --color-border: rgba(233, 233, 237, 0.16); /* « divider » */
 
-  /* Typographie (chargée via next/font dans layout.tsx) */
-  --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+  /* Texte */
+  --color-ink: #e9e9ed;
+  --color-muted: color-mix(in srgb, var(--color-ink) 70%, transparent);
+
+  /* Accent unique — blurple */
+  --color-accent: #9184d9;
+  --color-accent-300: #d2cefd; /* accent sur fond sombre (contraste) */
+  --color-accent-600: #796cbf; /* pressé / dégradé bas */
+  --color-accent-800: #423a6a; /* fills tintés, halos discrets */
+  --color-accent-900: #2b2741;
+
+  /* Bande de stats — seule zone saturée du site */
+  --color-section: #262a60;
+  --color-section-glow: #353b80;
+
+  /* Marqueur « en direct » */
+  --color-live: #e0483d;
+
+  /* Typographie */
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 
-  /* Rayons — coins très arrondis */
+  /* Rayons */
   --radius-pill: 999px;
 
-  /* Courbe d'animation « expo out » — sortie premium, feutrée */
+  /* Courbe de transition premium (hover cartes/thumbnails) */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 
-  /* Animations */
-  --animate-air-pulse: air-pulse 2s ease-in-out infinite;
-  --animate-wave: wave 1.2s ease-in-out infinite;
-  --animate-float: float 6s ease-in-out infinite;
+  /* Pulsation lente du marqueur « en direct » */
+  --animate-live-pulse: live-pulse 2.4s ease-in-out infinite;
 }
 
-@keyframes air-pulse {
+@keyframes live-pulse {
   0%,
   100% {
     opacity: 1;
-    transform: scale(1);
   }
   50% {
-    opacity: 0.4;
-    transform: scale(0.7);
-  }
-}
-
-@keyframes wave {
-  0%,
-  100% {
-    transform: scaleY(0.35);
-  }
-  50% {
-    transform: scaleY(1);
-  }
-}
-
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-8px);
+    opacity: 0.35;
   }
 }
 
@@ -82,25 +73,24 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* Titres en grotesque expressif */
 h1,
 h2,
 h3,
 h4 {
-  font-family: var(--font-display);
+  font-weight: 600;
   letter-spacing: -0.02em;
-  line-height: 1.05;
+  line-height: 1.1;
 }
 
 /* Focus visible accessible partout */
 :focus-visible {
-  outline: 2px solid var(--color-aqua);
-  outline-offset: 3px;
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
   border-radius: 4px;
 }
 
 ::selection {
-  background: var(--color-aqua);
+  background: var(--color-accent);
   color: var(--color-bg);
 }
 
@@ -117,91 +107,33 @@ h4 {
 }
 
 /* ------------------------------------------------------------------ */
-/*  Utilitaires signature                                             */
+/*  Utilitaires                                                        */
 /* ------------------------------------------------------------------ */
 
-/* Grain léger appliqué en overlay (voir composant <Grain />) */
-.grain {
-  position: fixed;
-  inset: 0;
-  z-index: 50;
-  pointer-events: none;
-  opacity: 0.05;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-/* Halo lumineux discret pour les héros / sections */
-.glow-aqua {
-  background: radial-gradient(
-    50% 50% at 50% 50%,
-    color-mix(in srgb, var(--color-aqua) 20%, transparent) 0%,
-    transparent 100%
-  );
-}
-.glow-lav {
-  background: radial-gradient(
-    50% 50% at 50% 50%,
-    color-mix(in srgb, var(--color-lav) 20%, transparent) 0%,
-    transparent 100%
-  );
-}
-
-/* Apparition au scroll (voir composant <Reveal />) */
-.reveal {
-  opacity: 0;
-  transform: translateY(20px);
-  transition:
-    opacity 0.7s var(--ease-out-expo),
-    transform 0.7s var(--ease-out-expo);
-  will-change: opacity, transform;
-}
-.reveal.is-visible {
-  opacity: 1;
-  transform: none;
-}
-
-/* Marquee horizontal en boucle (voir composant <Marquee />) */
-@keyframes marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-.marquee-track {
-  display: flex;
-  width: max-content;
-  /* Longhand + nom statique : évite que l'optimiseur CSS (Lightning) élague
-     les @keyframes quand la durée passe par une variable. */
-  animation-name: marquee;
-  animation-duration: var(--marquee-duration, 30s);
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-}
-.marquee:hover .marquee-track {
-  animation-play-state: paused;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .reveal {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
-  .marquee-track {
-    animation: none;
-  }
-}
-
-/* Motif d'onde sonore discret (fond de section) */
-.wave-texture {
+/* Motif rayé diagonal — emplacements fonctionnels non configurés
+   (calendrier de réservation, carte du studio). */
+.stripe-texture {
   background-image: repeating-linear-gradient(
-    90deg,
-    color-mix(in srgb, var(--color-ink) 4%, transparent) 0 1px,
-    transparent 1px 8px
+    135deg,
+    transparent 0 18px,
+    color-mix(in srgb, var(--color-ink) 4%, transparent) 18px 36px
   );
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 20%, #000 80%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 20%, #000 80%, transparent);
+}
+
+/* Vignette de miniature vidéo : léger zoom au survol de la carte parente. */
+.thumb {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  position: relative;
+}
+.thumb img {
+  transition: transform 0.5s var(--ease-out-expo);
+}
+.clipcard:hover .thumb img {
+  transform: scale(1.05);
+}
+.clipcard {
+  transition:
+    border-color 0.2s,
+    transform 0.2s;
 }
